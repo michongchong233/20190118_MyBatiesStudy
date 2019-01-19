@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mickey.mapper.User"><!-- namespace，理解為實現類的全路徑，包名+類名 -->
+	<!-- 
+	id，方法名；parameterType，定義參數類型；resultType，返回值類型
+	若方法返回類型是list，則在resultType中寫lise的泛型類型，因為mybaties是對JDBC封裝，它是一行一行讀取數據的
+	 -->
+	<select id="selectAll" resultType="com.mickey.pojo.User">
+		select * from T41_UserImformation;
+	</select>
+</mapper>
+
