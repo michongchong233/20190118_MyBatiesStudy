@@ -12,27 +12,25 @@ import javax.servlet.http.HttpServletResponse;
 import com.mickey.service.impl.UserServiceImpl;
 
 @WebServlet(
-		urlPatterns = { "/createUser" }, 
+		urlPatterns = { "/UserSelectAll" }, 
 		initParams = { 
-				@WebInitParam(name = "createUser", value = "createUser")
+				@WebInitParam(name = "UserSelectAll", value = "UserSelectAll")
 		})
-public class CreateUserServlet extends HttpServlet {
+public class UserSelectAllServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//設定編碼格式
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;charset=UTF-8");
-		//默取請求信息
-		String uname = request.getParameter("uname");
-		String password = request.getParameter("password");
-		Byte gender = Byte.parseByte(request.getParameter("gender"));
-		int age = Integer.parseInt(request.getParameter("age"));
+		response.setContentType("text/html;charset=utf-8");
+		//獲取請求信息
 		//處理請求信息
-		int updateNum = new UserServiceImpl().createUser(uname, password, gender, age);
-		System.out.println("updateNum:" + updateNum);
+		var userList = new UserServiceImpl().selectAll();
 		//響應處理結果
-		if(updateNum > 0) response.sendRedirect("/00_OriginWebProjectFor8/UserSelectAll");
+		userList.stream().forEach(u->System.out.println(u.toString()));
+		request.setAttribute("userList", userList);
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 		
 	}
+
 }

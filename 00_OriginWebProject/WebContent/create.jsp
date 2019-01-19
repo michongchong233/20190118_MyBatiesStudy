@@ -29,6 +29,5 @@
 		</table>
 		<input type="submit" value="submit">
 	</form>
-	<a href="">index page</a>
 </body>
 </html>

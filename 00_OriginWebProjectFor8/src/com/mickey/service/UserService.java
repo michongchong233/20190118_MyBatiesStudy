@@ -6,7 +6,7 @@ import com.mickey.pojo.User;
 
 public interface UserService {
 	public List<User> selectAll();
-	
-	public int createUser();
+
+	int createUser(String uname, String password, byte gender, int age);
 	
 }
