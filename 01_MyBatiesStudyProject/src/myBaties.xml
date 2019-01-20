@@ -3,22 +3,33 @@
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	<settings>
+		<setting name="logImpl" value="LOG4J" />
+	</settings>
 	<environments default="myMyBatiesProject"><!-- 表示當前作使用的環境 -->
 		<environment id="myMyBatiesProject"><!-- 可能使用的環境，可以用作連接不同數據庫用不同的environment -->
 			<!-- 
-			JDBC：使用JDBC默認事務(數據自動提交)，conn.setAutoCommit(true);
+			<transactionManager type="JDBC"/>
+			JDBC：使用JDBC默認事務(不做任何管理，數據自動提交)，conn.setAutoCommit(true);
+			MANAGED：把事務管理轉交給其他容器處理，如Spring，conn.setAutoCommit(false);
 			-->
 			<transactionManager type="JDBC"/><!-- 使用原生JDBC原生事務 -->
+			<!-- 
+			<dataSource type="POOLED">
+			POOLED，使用數據庫連接池(提升數據庫的效率)
+			UNPOOLED，不使用數據庫連接池
+			JNDI，用java調用其他語言的技術
+			 -->
 			<dataSource type="POOLED"><!-- 使用數據庫連接池技術 -->
-				<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+				<property name="driver" value="com.mysql.cj.jdbc.Driver"/>
 				<property name="url" value="jdbc:mysql://localhost:3306/dbtest?serverTimezone=UTC"/>
 				<property name="username" value="root"/>
-				<property name="password" value="s70103ss"/>
+				<property name="password" value="1234"/>
 			</dataSource>
 		</environment>
 	</environments>
 	<mappers>
-		<mapper resource=""></mapper>
+		<mapper resource="com/mickey/mapper/UserMapper.xml" />
 	</mappers>
 </configuration>
 

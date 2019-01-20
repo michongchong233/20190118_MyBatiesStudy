@@ -8,6 +8,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	若方法返回類型是list，則在resultType中寫lise的泛型類型，因為mybaties是對JDBC封裝，它是一行一行讀取數據的
 	 -->
 	<select id="selectAll" resultType="com.mickey.pojo.User">
+		<!-- 
+		pojo盡可能地寫和資料庫的字段名一致，否則要另外寫sql的別名為pojo類的屬性名 
+		如：select uid, uname newUname, password gender, age from T41_UserImformation;
+		-->
+		select * from T41_UserImformation;
+	</select>
+	<select id="selectCount" resultType="int">
+		select count(*) from T41_UserImformation;
+	</select>
+	<select id="selectMap" resultType="com.mickey.pojo.User">
 		select * from T41_UserImformation;
 	</select>
 </mapper>

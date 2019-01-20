@@ -27,7 +27,7 @@
 		</tr>
 	</c:forEach>
 </table>
-<a href="http://localhost:8080/00_OriginWebProjectFor8/create.jsp">Create User</a>
+<a href="/00_OriginWebProjectFor8/create.jsp">Create User</a>
 
 </body>
 </html>

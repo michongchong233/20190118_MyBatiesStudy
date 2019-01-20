@@ -8,7 +8,7 @@
 </head>
 <body>
 <h3>Create User</h3><hr>
-	<form action="http://localhost:8080/00_OriginWebProjectFor8/createUser" method="post">
+	<form action="/00_OriginWebProjectFor8/createUser" method="post">
 		<table>
 			<tr>
 				<td>uname:</td>

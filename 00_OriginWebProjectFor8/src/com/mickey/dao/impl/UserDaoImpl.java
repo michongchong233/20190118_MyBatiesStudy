@@ -17,7 +17,7 @@ public class UserDaoImpl implements UserDao {
 	public List<User> selectAll() {
 		String url = "jdbc:mysql://localhost:3306/dbtest?serverTimezone=UTC";
 		String user = "root";
-		String userPassword = "s70103ss";
+		String userPassword = "1234";
 		String sql = "select * from T41_UserImformation";
 		Connection conn = null;
 		PreparedStatement ps = null;
