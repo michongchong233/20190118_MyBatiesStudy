@@ -20,5 +20,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectMap" resultType="com.mickey.pojo.User">
 		select * from T41_UserImformation;
 	</select>
+	<select id="selectById" parameterType="int" resultType="com.mickey.pojo.User">
+		select * from T41_UserImformation where uid=#{0}<!-- #{0}表示第1個參數 -->
+	</select>
+	<select id="selectById_2" parameterType="com.mickey.pojo.User" resultType="com.mickey.pojo.User">
+		select * from T41_UserImformation where uid=${uid}<!-- ${uid}表示從User對象中取屬性uid -->
+	</select>
+	<select id="selectById_3" parameterType="map" resultType="com.mickey.pojo.User">
+		select * from T41_UserImformation where uid=#{uid} and uname=#{uname}<!-- 從map中取key的值 -->
+	</select>
 </mapper>
 
