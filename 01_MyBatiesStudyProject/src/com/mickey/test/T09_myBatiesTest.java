@@ -18,7 +18,7 @@ import com.mickey.pojo.User;
 public class T09_myBatiesTest {
 
 	public static void main(String[] args) {
-//		selectAll();
+		selectAll();
 //		selectCount();
 //		selectMap();
 //		System.out.println(selectById(1)!=null?selectById(1).toString():null);
@@ -32,11 +32,25 @@ public class T09_myBatiesTest {
 //		map.put("uname", "test1");
 //		System.out.println(selectById_3(map) != null ? selectById_3(map).toString() : null);
 		
-		Map<String, Integer> map_1 = new HashMap<String, Integer>();
-		map_1.put("pageStart", 2);//第幾頁
-		map_1.put("pageSize", 2);//第幾個
-		if(selectLimit(map_1)!=null)selectLimit(map_1).stream().forEach(u->System.out.println(u.toString()));
+//		Map<String, Integer> map_1 = new HashMap<String, Integer>();
+//		map_1.put("pageStart", 2);//第幾頁
+//		map_1.put("pageSize", 2);//第幾個
+//		if(selectLimit(map_1)!=null)selectLimit(map_1).stream().forEach(u->System.out.println(u.toString()));
 
+//		User user_insert = new User();
+//		user_insert.setUname("myBateisTestUser");
+//		user_insert.setPassword("s13579");
+//		user_insert.setGender((byte) 1);
+//		user_insert.setAge(55);
+//		System.out.println(insertUser(user_insert));
+		
+//		System.out.println(deleteUser(19));
+		
+//		Map<String, Object> map_2 = new HashMap<String, Object>();
+//		map_2.put("uid", 20);
+//		map_2.put("password", "SSSS");
+//		System.out.println(updateUserPasswordById(map_2));
+		
 	}
 
 	/**
@@ -163,6 +177,60 @@ public class T09_myBatiesTest {
 			e.printStackTrace();
 		}
 		return userList;
+	}
+	
+	/**
+	 * 新增用戶
+	 */
+	private static int insertUser(User user) {
+		InputStream is;
+		int updateNum = 0;
+		try {
+			is = Resources.getResourceAsStream("myBaties.xml");
+			SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(is);
+			SqlSession session = factory.openSession();
+			updateNum = session.insert("com.mickey.mapper.User.insertUser", user);
+			session.commit();//若新增期間沒有錯誤，確認提交事務
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return updateNum;
+	}
+	
+	/**
+	 * 刪除用戶
+	 */
+	private static int deleteUser(int id) {
+		InputStream is;
+		int updateNum = 0;
+		try {
+			is = Resources.getResourceAsStream("myBaties.xml");
+			SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(is);
+			SqlSession session = factory.openSession();
+			updateNum = session.delete("com.mickey.mapper.User.deleteUser", id);
+			session.commit();//若新增期間沒有錯誤，確認提交事務
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return updateNum;
+	}
+	
+	/**
+	 * 修改用戶密碼
+	 */
+	private static int updateUserPasswordById(Map map) {
+		InputStream is;
+		int updateNum = 0;
+		try {
+			is = Resources.getResourceAsStream("myBaties.xml");
+			SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(is);
+			SqlSession session = factory.openSession();
+			updateNum = session.update("com.mickey.mapper.User.updateUserPasswordById", map);
+			session.commit();//若新增期間沒有錯誤，確認提交事務
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return updateNum;
 	}
 
 }

@@ -33,5 +33,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="limitPage" parameterType="map" resultType="user">
 		select * from T41_UserImformation limit #{pageStart}, #{pageSize}
 	</select>
+	<!-- 新增 -->
+	<insert id="insertUser" parameterType="user"><!-- resultType值為int，不用另外寫 -->
+		insert into T41_UserImformation (uname, password, gender, age) values (#{uname}, #{password}, #{gender}, #{age});
+	</insert>
+	<!-- 刪除 -->
+	<delete id="deleteUser" parameterType="int"><!-- resultType值為int，不用另外寫 -->
+		delete from T41_UserImformation where uid=#{0};
+	</delete>
+	<!-- 修改 -->
+	<update id="updateUserPasswordById" parameterType="map">
+		update T41_UserImformation set password=#{password} where uid=#{uid};
+	</update>
 </mapper>
 
