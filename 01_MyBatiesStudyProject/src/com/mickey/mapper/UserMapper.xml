@@ -45,5 +45,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateUserPasswordById" parameterType="map">
 		update T41_UserImformation set password=#{password} where uid=#{uid};
 	</update>
+	
+	<!-- myBaties第20課，提升_冷頁查詢 -->
+	<select id="userLimitPage" parameterType="map" resultType="user">
+		select * from T41_UserImformation limit #{pageStart}, #{pageSize};
+	</select>
+	<select id="selectCount" resultType="int">
+		select count(*) from T41_UserImformation;
+	</select>
+	
 </mapper>
 
