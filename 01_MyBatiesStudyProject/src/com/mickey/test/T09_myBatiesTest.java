@@ -22,14 +22,21 @@ public class T09_myBatiesTest {
 //		selectCount();
 //		selectMap();
 //		System.out.println(selectById(1)!=null?selectById(1).toString():null);
-//		User user = new User();
+
+		// User user = new User();
 //		user.setUid(1);//設定要傳入的參數
 //		System.out.println(selectById_2(user)!=null?selectById_2(user).toString():null);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("uid", 1);//設定要傳入的多個參數
-		map.put("uname", "test1");
-		System.out.println(selectById_3(map)!=null?selectById_3(map).toString():null);
+
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("uid", 1);// 設定要傳入的多個參數
+//		map.put("uname", "test1");
+//		System.out.println(selectById_3(map) != null ? selectById_3(map).toString() : null);
 		
+		Map<String, Integer> map_1 = new HashMap<String, Integer>();
+		map_1.put("pageStart", 2);//第幾頁
+		map_1.put("pageSize", 2);//第幾個
+		if(selectLimit(map_1)!=null)selectLimit(map_1).stream().forEach(u->System.out.println(u.toString()));
+
 	}
 
 	/**
@@ -87,7 +94,7 @@ public class T09_myBatiesTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * session.selectOne("com.mickey.mapper.User.selectById", id);
 	 * 設定參數查找User，配置文件使用占位符以及#{}獲取對象
@@ -105,8 +112,7 @@ public class T09_myBatiesTest {
 		}
 		return user;
 	}
-	
-	
+
 	/**
 	 * session.selectOne("com.mickey.mapper.User.selectById_2", u);
 	 * 設定參數查找User，配置文件使用字符串拼接以及${}獲取對象
@@ -124,12 +130,11 @@ public class T09_myBatiesTest {
 		}
 		return user;
 	}
-	
+
 	/**
-	 * session.selectOne("com.mickey.mapper.User.selectById", id);
-	 * 使用map設定多個參數查找User
+	 * session.selectOne("com.mickey.mapper.User.selectById", id); 使用map設定多個參數查找User
 	 */
-	private static User selectById_3(Map map) {
+	private static User selectById_3(Map<String, Object> map) {
 		InputStream is;
 		User user = null;
 		try {
@@ -141,6 +146,23 @@ public class T09_myBatiesTest {
 			e.printStackTrace();
 		}
 		return user;
+	}
+	
+	/**
+	 * 分頁顯示
+	 */
+	private static List<User> selectLimit(Map<String, Integer> map) {
+		InputStream is;
+		List<User> userList = null;
+		try {
+			is = Resources.getResourceAsStream("myBaties.xml");
+			SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(is);
+			SqlSession session = factory.openSession();
+			userList = session.selectList("com.mickey.mapper.User.limitPage", map);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return userList;
 	}
 
 }

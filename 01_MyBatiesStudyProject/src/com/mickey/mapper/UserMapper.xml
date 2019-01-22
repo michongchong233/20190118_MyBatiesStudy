@@ -29,5 +29,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectById_3" parameterType="map" resultType="com.mickey.pojo.User">
 		select * from T41_UserImformation where uid=#{uid} and uname=#{uname}<!-- 從map中取key的值 -->
 	</select>
+	<!-- 分頁查詢 -->
+	<select id="limitPage" parameterType="map" resultType="com.mickey.pojo.User">
+		select * from T41_UserImformation limit #{pageStart}, #{pageSize}
+	</select>
 </mapper>
 
