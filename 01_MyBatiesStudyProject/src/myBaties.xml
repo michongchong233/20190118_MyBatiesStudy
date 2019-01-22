@@ -6,6 +6,11 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<settings>
 		<setting name="logImpl" value="LOG4J" />
 	</settings>
+	<!-- 別名設定 -->
+	<typeAliases>
+		<!-- <typeAlias type="com.mickey.pojo.User" alias="myUser"/> --><!-- 設定單個類的別名 -->
+		<package name="com.mickey.pojo"/><!-- 設定包內的類的別名都為類名 -->
+	</typeAliases>
 	<environments default="myMyBatiesProject"><!-- 表示當前作使用的環境 -->
 		<environment id="myMyBatiesProject"><!-- 可能使用的環境，可以用作連接不同數據庫用不同的environment -->
 			<!-- 
