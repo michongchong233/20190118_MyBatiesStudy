@@ -8,11 +8,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from mybateis_t21_acount;
 	</select>
 	<!-- 根據帳號、密碼查詢用戶 -->
-	<select id="selectAccount" parameterType="map" resultType="account">
-		select * from mybateis_t21_acount where account_name=#{account_name} and password=#{password};
+	<select id="selectAccount_1" parameterType="map" resultType="account">
+		select * from mybateis_t21_acount where account_name=#{outAccount_name} and password=#{outPassword};
 	</select>
-	<!-- 據帳號查詢用戶 -->
-	<select id="selectAccount" parameterType="string" resultType="account">
-		select * from mybateis_t21_acount where account_name=#{account_name};
+	<!-- 據帳號和帳戶名查詢用戶 -->
+	<select id="selectAccount_2" parameterType="map" resultType="account">
+		select * from mybateis_t21_acount where account_name=#{account_name} and uname=#{uname};
 	</select>
+	<!-- 更新用戶余額 -->
+	<update id="updateBalance" parameterType="map">
+		update mybateis_t21_acount set balance=#{balance} where uid=#{uid};
+	</update>
 </mapper>
