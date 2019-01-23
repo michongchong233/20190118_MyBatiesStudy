@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.mickey.pojo.T20_PageInfo;
+import com.mickey.pojo.User;
 import com.mickey.service.T20_UserLimitPageService;
 
 public class T20_UserLimitPageServiceImpl implements T20_UserLimitPageService {
@@ -30,6 +31,21 @@ public class T20_UserLimitPageServiceImpl implements T20_UserLimitPageService {
 		int count = session.selectOne("com.mickey.mapper.User.selectCount_20");//Á`±ø¼Æ 
 		pageInfo.setPageTotal(count%pageSize==0?count/pageSize:count/pageSize+1);
 		return pageInfo;
+	}
+
+	@Override
+	public int createUser(String uname, String password, byte gender, int age) throws IOException {
+		User user = new User();
+		user.setUname(uname);
+		user.setPassword(password);
+		user.setGender(gender);
+		user.setAge(age);
+		InputStream is = Resources.getResourceAsStream("myBaties.xml");
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(is);
+		SqlSession session = factory.openSession();
+		int updateNum = session.insert("com.mickey.mapper.User.insertUser", user);
+		session.commit();
+		return updateNum;
 	}
 
 }

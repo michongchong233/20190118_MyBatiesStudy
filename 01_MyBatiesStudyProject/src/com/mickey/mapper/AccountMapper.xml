@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mickey.mapper.account">
+	<!-- 查詢全部用戶 -->
+	<select id="selectAll" resultType="account">
+		select * from mybateis_t21_acount;
+	</select>
+	<!-- 根據帳號、密碼查詢用戶 -->
+	<select id="selectAccount" parameterType="map" resultType="account">
+		select * from mybateis_t21_acount where account_name=#{account_name} and password=#{password};
+	</select>
+	<!-- 據帳號查詢用戶 -->
+	<select id="selectAccount" parameterType="string" resultType="account">
+		select * from mybateis_t21_acount where account_name=#{account_name};
+	</select>
+</mapper>

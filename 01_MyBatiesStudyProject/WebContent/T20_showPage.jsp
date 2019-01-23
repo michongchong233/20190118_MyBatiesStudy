@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h3>T20_showPage.jsp</h3><hr>
-	<a href="">建立用戶</a>
+	<a href="T21_CreateUser.jsp">建立用戶</a>
 	<table>
 		<tr>
 			<th>uid</th>

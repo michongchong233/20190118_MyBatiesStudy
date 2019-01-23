@@ -8,4 +8,6 @@ import com.mickey.pojo.User;
 
 public interface T20_UserLimitPageService {
 	public T20_PageInfo showUser(Integer pageStart, Integer pageSize) throws IOException;
+	
+	public int createUser(String uname, String password, byte gender, int age) throws IOException;
 }

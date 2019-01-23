@@ -35,6 +35,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	</environments>
 	<mappers>
 		<mapper resource="com/mickey/mapper/UserMapper.xml" />
+		<mapper resource="com/mickey/mapper/AccountMapper.xml" />
 	</mappers>
 </configuration>
 
