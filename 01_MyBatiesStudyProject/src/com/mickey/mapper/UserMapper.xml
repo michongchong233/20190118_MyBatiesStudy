@@ -50,7 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="userLimitPage" parameterType="map" resultType="user">
 		select * from T41_UserImformation limit #{pageStart}, #{pageSize};
 	</select>
-	<select id="selectCount" resultType="int">
+	<select id="selectCount_20" resultType="int">
 		select count(*) from T41_UserImformation;
 	</select>
 	

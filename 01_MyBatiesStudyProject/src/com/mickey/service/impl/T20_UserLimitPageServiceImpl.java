@@ -27,7 +27,7 @@ public class T20_UserLimitPageServiceImpl implements T20_UserLimitPageService {
 		map.put("pageSize", pageSize);
 		pageInfo.setList(session.selectList("com.mickey.mapper.User.userLimitPage", map));
 		
-		int count = session.selectOne("com.mickey.mapper.User.selectCount");//總條數 
+		int count = session.selectOne("com.mickey.mapper.User.selectCount_20");//總條數 
 		pageInfo.setPageTotal(count%pageSize==0?count/pageSize:count/pageSize+1);
 		return pageInfo;
 	}

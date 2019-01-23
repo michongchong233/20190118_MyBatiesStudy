@@ -26,8 +26,18 @@ public class T20_UserLimitPageServlet extends HttpServlet {
 	private T20_UserLimitPageService userService = new T20_UserLimitPageServiceImpl();
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int pageStart = Integer.parseInt(request.getParameter("pageStart"));
-		int pageSize = Integer.parseInt(request.getParameter("pageSize"));
+		//第一次訪問的驗證，如果沒有傳遞參數，設置默認值
+		String pageSizeStr = request.getParameter("pageSize");
+		int pageSize = 6;
+		if(pageSizeStr!=null && !pageSizeStr.equals("")) {
+			pageSize = Integer.parseInt(pageSizeStr);
+		}
+		String pageStartStr = request.getParameter("pageStart");
+		int pageStart = 1;
+		if(pageStartStr!=null && !pageStartStr.equals("")) {
+			pageStart = Integer.parseInt(pageStartStr);
+		}
+		
 		T20_PageInfo pageInfo = userService.showUser(pageStart, pageSize);
 		request.setAttribute("pageInfo", pageInfo);
 		request.getRequestDispatcher("T20_showPage.jsp").forward(request, response);
