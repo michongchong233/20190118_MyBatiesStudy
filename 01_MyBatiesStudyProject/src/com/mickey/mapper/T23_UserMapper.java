@@ -11,4 +11,5 @@ public interface T23_UserMapper {
 	//根據uid和uname查詢用戶
 	public User selectById(int uid, String uname);
 	
+	public List<User> selectForDynamicSql(int uid, String uname, byte gender);
 }

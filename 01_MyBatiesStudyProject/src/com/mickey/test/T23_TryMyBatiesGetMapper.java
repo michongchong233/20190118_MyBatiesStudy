@@ -27,8 +27,8 @@ public class T23_TryMyBatiesGetMapper {
 		List<User> users = um.selectAll();
 		users.stream().forEach(u->System.out.println(u.toString()));
 		
-		//根據uid和uname查詢用戶
-		User user = um.selectById(4, "mickey");
-		System.out.println(user!=null?user.toString():"查無此用戶");
+//		//根據uid和uname查詢用戶
+//		User user = um.selectById(4, "mickey");
+//		System.out.println(user!=null?user.toString():"查無此用戶");
 	}
 }
