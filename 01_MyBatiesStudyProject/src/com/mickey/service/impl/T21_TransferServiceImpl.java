@@ -2,7 +2,9 @@ package com.mickey.service.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
@@ -12,6 +14,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.mickey.pojo.Account;
 import com.mickey.pojo.MessageCode;
+import com.mickey.pojo.TransferLog;
 import com.mickey.service.T21_TransferService;
 
 public class T21_TransferServiceImpl implements T21_TransferService {
@@ -43,8 +46,16 @@ public class T21_TransferServiceImpl implements T21_TransferService {
 						updateMap_in.put("uid", inAcc.getUid());
 						int updateNum_in = session.update("com.mickey.mapper.account.updateBalance", updateMap_in);
 						if (updateNum_in == 1) {// 存款成功
-							session.commit();
-							return MessageCode.SUCCESS;
+							Map<String, Object> logMap = new HashMap<String, Object>();
+							logMap.put("out_account", outAcc.getAccount_name());
+							logMap.put("in_account", inAcc.getAccount_name());
+							logMap.put("transfer_money", money);
+							logMap.put("transfer_datetime", LocalDateTime.now());
+							int insertNum = session.insert("com.mickey.mapper.account.insertLog", logMap);
+							if(insertNum == 1) {//添加transfer log成功
+								session.commit();
+								return MessageCode.SUCCESS;
+							}
 						}
 					} else {
 						// 無此轉戶帳戶
@@ -62,4 +73,16 @@ public class T21_TransferServiceImpl implements T21_TransferService {
 		//不明錯誤
 		return MessageCode.ERROR_004;
 	}
+
+	@Override
+	public List<TransferLog> selectAllLog() throws IOException {
+		InputStream is = Resources.getResourceAsStream("myBaties.xml");
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(is);
+		SqlSession session = factory.openSession();
+		List<TransferLog> logs = session.selectList("com.mickey.mapper.account.selectAllLog");
+		logs.stream().forEach(l->System.out.println(l.toString()));
+		return logs;
+	}
+	
+	
 }

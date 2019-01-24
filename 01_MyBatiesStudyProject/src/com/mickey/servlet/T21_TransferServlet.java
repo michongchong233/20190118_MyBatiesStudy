@@ -34,6 +34,7 @@ public class T21_TransferServlet extends HttpServlet {
 		String InName = request.getParameter("InName");
 		MessageCode mc = ts.transferAccount(OutAccName, OutPassword, money, InAccName, InName);
 		System.out.println(mc.getErrorNum() + ":" + mc.getMessage());
+		response.setCharacterEncoding("/22_test");
 
 	}
 

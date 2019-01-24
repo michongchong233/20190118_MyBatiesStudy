@@ -8,6 +8,7 @@
 </head>
 <body>
 	<h3>T20_Account</h3><hr>
+	<a href="22_test">查看記錄</a>
 	<form action="21_account" method="post">
 		<table>
 			<tr>

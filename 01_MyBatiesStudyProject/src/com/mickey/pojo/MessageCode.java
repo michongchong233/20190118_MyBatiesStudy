@@ -5,6 +5,7 @@ public enum MessageCode{
 		ERROR_002("ERROR_002", "無此轉帳用戶"),
 		ERROR_003("ERROR_003", "余額不足"),
 		ERROR_004("ERROR_004", "不明錯誤"),
+		ERROR_005("ERROR_005", "獲取資料失敗"),
 		SUCCESS("SUCCESS", "操作成功");
 		
 		private final String errorNum;

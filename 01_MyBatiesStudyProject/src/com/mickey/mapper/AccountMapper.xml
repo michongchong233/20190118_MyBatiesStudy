@@ -19,4 +19,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateBalance" parameterType="map">
 		update mybateis_t21_acount set balance=#{balance} where uid=#{uid};
 	</update>
+	
+	<!-- insert transfer log -->
+	<insert id="insertLog" parameterType="map">
+		insert into mybateis_t22_transferlog values (default, #{out_account}, #{in_account}, #{transfer_money}, #{transfer_datetime});
+	</insert>
+	<!-- select all log -->
+	<select id="selectAllLog" resultType="transferlog">
+		select * from mybateis_t22_transferlog;
+	</select>
 </mapper>
