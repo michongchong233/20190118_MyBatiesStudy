@@ -25,8 +25,19 @@ public class T24_DynamicSqlTest {
 		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(is);
 		SqlSession session = factory.openSession();
 		T23_UserMapper um = session.getMapper(T23_UserMapper.class);
-		List<User> users = um.selectForDynamicSql(user.getUid(), user.getUname(), user.getGender());
+//		List<User> users = um.selectForDynamicSql_if(user.getUid(), user.getUname(), user.getGender());
+//		List<User> users = um.selectForDynamicSql_where(user.getUid(), user.getUname(), user.getGender());
+//		List<User> users = um.selectForDynamicSql_choose(user.getUid(), user.getUname(), user.getGender());
+		List<User> users = um.selectForDynamicSql_trim(user.getUid(), user.getUname(), user.getGender());
 		users.stream().forEach(u->System.out.println(u.toString()));
+
+//		int updateNum = um.updateForDynamicSql_set(user.getUid(), user.getUname(), user.getGender());
+//		session.commit();
+//		System.out.println(updateNum==1?"修改成功":"修改失敗");
+//		System.out.println(um.selectForDynamicSql_where(user.getUid(), user.getUname(), user.getGender()));
+		
+//		inputInputCondition();
+		
 	}
 	
 	/**
@@ -53,7 +64,35 @@ public class T24_DynamicSqlTest {
 			byte gender = Byte.parseByte(genderStr);
 			user.setGender(gender);	
 		}
+		input.close();
+		return user;
+	}
+	
+	/**
+	 * 輸入查詢條件
+	 */
+	private static User inputInputCondition() {
+		User user = new User();
+		Scanner input = new Scanner(System.in);
+		System.out.println("please input select condition：uid、uname、gender");
 		
+		String uidStr = input.nextLine();
+		if(uidStr!=null && !uidStr.equals("")) {
+			int uid = Integer.parseInt(uidStr);
+			user.setUid(uid);
+		}
+		
+		String uname = input.nextLine();
+		if(uname!=null && !uname.equals("")) {
+			user.setUname(uname);
+		}
+		
+		String genderStr = input.nextLine();
+		if(genderStr!=null && !genderStr.equals("")) {
+			byte gender = Byte.parseByte(genderStr);
+			user.setGender(gender);	
+		}
+		input.close();
 		return user;
 	}
 }

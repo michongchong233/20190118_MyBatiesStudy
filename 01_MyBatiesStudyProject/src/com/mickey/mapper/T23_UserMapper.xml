@@ -13,14 +13,55 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- myBaties第24課，動態SQL -->
-	<select id="selectForDynamicSql" resultType="user">
+	<select id="selectForDynamicSql_if" resultType="user">
 		select * from T41_UserImformation
 		<if test="param1 != 0 || param2 != null || param3 != 0"> where </if>
 		<if test="param1 != 0">uid=#{param1} </if>
-		<if test="param2 != null">and uname=#{param2} </if>
-		<if test="param3 != 0">and gender=#{param3}</if>
-		;
+		<if test="param1 != 0 and param2 != null">and </if>
+		<if test="param2 != null">uname like "%"#{param2}"%" </if>
+		<if test="(param1!=0 and param3!=0) || (param2 != null and param3 != 0)">and </if>
+		<if test="param3 != 0">gender=#{param3}</if>
 	</select>
+	<select id="selectForDynamicSql_where" resultType="user">
+		select * from T41_UserImformation 
+		<where>
+			<if test="param1 != 0">and uid=#{param1} </if>
+			<if test="param2 != null">and uname like "%"#{param2}"%" </if>
+			<if test="param3 != 0">and gender=#{param3}</if>
+		</where>
+	</select>
+	<select id="selectForDynamicSql_choose" resultType="user">
+		select * from T41_UserImformation 
+		<where>
+			<choose>
+				<when test="param1 != 0">and uid=#{param1} </when>
+				<when test="param2 != null">and uname like "%"#{param2}"%" </when>
+				<when test="param3 != 0">and gender=#{param3}</when>			
+			</choose>
+		</where>
+	</select>
+	<update id="updateForDynamicSql_set">
+		update T41_UserImformation 
+		<set>
+			<if test="param2 != null">uname=#{param2},</if>
+			<if test="param3 != 0">gender=#{param3},</if> 
+		</set>
+		where uid=#{param1}
+	</update>
+	<select id="selectForDynamicSql_trim" resultType="user">
+		select * from T41_UserImformation 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<choose>
+				<when test="param1 != 0">and uid=#{param1} </when>
+				<when test="param2 != null">and uname like "%"#{param2}"%" </when>
+				<when test="param3 != 0">and gender=#{param3}</when>			
+			</choose>
+		</trim>
+	</select>
+	
+	<insert id="insertForDynamicSql_set">
+		insert into T41_UserImformation values (default, #{param1}, #{param2}, #{param3}, #{param4});
+	</insert>
 	
 </mapper>
 

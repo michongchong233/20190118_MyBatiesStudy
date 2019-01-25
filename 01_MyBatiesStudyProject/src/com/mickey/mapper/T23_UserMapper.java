@@ -11,5 +11,15 @@ public interface T23_UserMapper {
 	//根據uid和uname查詢用戶
 	public User selectById(int uid, String uname);
 	
-	public List<User> selectForDynamicSql(int uid, String uname, byte gender);
+	public List<User> selectForDynamicSql_if(int uid, String uname, byte gender);
+	
+	public List<User> selectForDynamicSql_where(int uid, String uname, byte gender);
+
+	public List<User> selectForDynamicSql_choose(int uid, String uname, byte gender);
+
+	public int updateForDynamicSql_set(int uid, String uname, byte gender);
+
+	public List<User> selectForDynamicSql_trim(int uid, String uname, byte gender);
+	
+	public int insertForDynamicSql_set(String uname, String password, byte gender, int age);
 }
