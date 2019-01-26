@@ -22,4 +22,7 @@ public interface T23_UserMapper {
 	public List<User> selectForDynamicSql_trim(int uid, String uname, byte gender);
 	
 	public int insertForDynamicSql_set(String uname, String password, byte gender, int age);
+	
+	//class 25，使用不同的select標簽就是屬於不同的statement
+	public List<User> selectAll_Cache();
 }
