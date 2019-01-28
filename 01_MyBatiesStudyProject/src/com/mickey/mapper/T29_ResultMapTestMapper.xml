@@ -11,7 +11,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="tname" property="name"/>
 	</resultMap>
 
-	<select id="selectAll" resultType="T27_Teacher">
+	<select id="selectAll" resultMap="mapTest">
 		select * from mybaties_t27_teacher;
 	</select>
+	
+	<!-- <resultMap>實現關聯單個對象(N+1方式) -->
+	
+	<select id="selectAllStu">
+	
+	</select>
+	
 </mapper>
