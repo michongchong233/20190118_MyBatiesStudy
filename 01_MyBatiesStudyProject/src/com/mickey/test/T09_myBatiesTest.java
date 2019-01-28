@@ -65,7 +65,7 @@ public class T09_myBatiesTest {
 			SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(is);
 			// 生産SqlSession
 			SqlSession session = factory.openSession();
-			List<User> list = session.selectList("selectAll");
+			List<User> list = session.selectList("com.mickey.mapper.User.selectAll");
 			list.stream().forEach(l -> System.out.println(l.toString()));
 		} catch (IOException e) {
 			e.printStackTrace();

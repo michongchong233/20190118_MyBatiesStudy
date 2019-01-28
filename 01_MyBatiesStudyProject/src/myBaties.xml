@@ -36,6 +36,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<mappers>
 		<mapper resource="com/mickey/mapper/UserMapper.xml" />
 		<mapper resource="com/mickey/mapper/AccountMapper.xml" />
+		<mapper resource="com/mickey/mapper/T29_ResultMapTestMapper.xml" />
 		<package name="com.mickey.mapper"/>
 	</mappers>
 </configuration>

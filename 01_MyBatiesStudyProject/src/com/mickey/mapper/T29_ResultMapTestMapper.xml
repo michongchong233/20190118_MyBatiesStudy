@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 使用resultMap實現單表映射關系 -->
+<mapper namespace="com.mickey.mapper.T29_ResultMapTestMapper">
+	<resultMap type="T29_Teacher" id="mapTest">
+		<!-- 主鍵使用id標簽配置映射關系，column表示數據庫的字段名，property表示java的屬性名 -->
+		<id column="tid" property="id"/>
+		<!-- 其他列使用result標簽配置映射關系 -->
+		<result column="tname" property="name"/>
+	</resultMap>
+
+	<select id="selectAll" resultType="T27_Teacher">
+		select * from mybaties_t27_teacher;
+	</select>
+</mapper>
