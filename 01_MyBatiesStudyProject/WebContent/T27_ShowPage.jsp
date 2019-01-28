@@ -13,9 +13,10 @@
 	$(function() {
 		var pageSizeStr = "${pageInfo.pageSize}";//代表字符串
 		var pageStartStr = "${pageInfo.pageStart}";
-		var pageNumber = "${pageInfo.pageNumber}";
+		var pageNumber = ${pageInfo.pageNumber};
 		var tname = "${pageInfo.tname}";
 		var sname = "${pageInfo.sname}";
+		var total = ${pageInfo.total};
 
 		//讓js選擇當前的pageSize
 		//i表示循環角標，n表示迭代變量(數組的第i個)；其中n是dom對象
@@ -35,13 +36,52 @@
 		$(":text[name='tname']").val(tname);
 
 		//搜索button點野事件
-		$("button").click(
-				function() {
-					$(location).attr('href',"27_test?pageSizeStr=" + pageSizeStr
-							+ "&pageNumberStr=1&tname="
-							+ $(":text[name='tname']").val() + "&tname="
-							+ $(":text[name='sname']").val());
-				});
+		$("button").click(function() {
+			pageSizeStr = $(":radio[name='pageSizeStr']").val();
+			$(location).attr('href', "27_test" //
+					+ "?pageSizeStr=" + pageSizeStr//
+					+ "&pageNumberStr=1" //
+					+ "&sname=" + $(":text[name='sname']").val()//
+					+ "&tname=" + $(":text[name='tname']").val());
+		});
+		
+		//單選按紐點擊事件
+		$(":radio").click(function(){
+			pageSizeStr = $(this).val();
+			$(location).attr('href', "27_test" //
+					+ "?pageSizeStr=" + pageSizeStr//
+					+ "&pageNumberStr=1" //
+					+ "&sname=" + $(":text[name='sname']").val()//
+					+ "&tname=" + $(":text[name='tname']").val());
+		});
+		
+		//點擊上一頁
+		$(".page_a:eq(0)").click(function(){
+			pageNumber = pageNumber - 1;
+			if(pageNumber >= 1){
+				this.href = "27_test" //
+						+ "?pageSizeStr=" + pageSizeStr//
+						+ "&pageNumberStr=" + pageNumber//
+						+ "&sname=" + $(":text[name='sname']").val()//
+						+ "&tname=" + $(":text[name='tname']").val();
+			}else{
+				pageNumber = 1;
+			}
+		});
+		
+		//點擊下一頁
+		$(".page_a:eq(1)").click(function(){
+			pageNumber = pageNumber + 1;
+			if(pageNumber <= total){
+				this.href = "27_test" //
+						+ "?pageSizeStr=" + pageSizeStr//
+						+ "&pageNumberStr=" + pageNumber//
+						+ "&sname=" + $(":text[name='sname']").val()//
+						+ "&tname=" + $(":text[name='tname']").val();
+			}else{
+				pageNumber = total;
+			}
+		});
 
 	});
 </script>
@@ -56,7 +96,8 @@
 	<br> student name:
 	<input type="text" name="sname" value=""> teacher name:
 	<input type="text" name="tname" value="">
-	<button>search</button><br>
+	<button>search</button>
+	<br>
 
 	<table>
 		<tr>
@@ -74,7 +115,7 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<a>上一頁</a>
-	<a>下一頁</a>
+	<a href="" class="page_a">上一頁</a>
+	<a href="" class="page_a">下一頁</a>
 </body>
 </html>
