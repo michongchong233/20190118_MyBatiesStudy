@@ -15,10 +15,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from mybaties_t27_teacher;
 	</select>
 	
-	<!-- <resultMap>實現關聯單個對象(N+1方式) -->
-	
-	<select id="selectAllStu">
-	
+	<!-- class 30，<resultMap>實現關聯單個對象(N+1方式) -->
+	<resultMap type="T27_Student" id="mapTest_1">
+		<!-- 
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="age" column="age"/>
+		 -->
+		<result property="tid" column="tid"/>
+		<!-- 關聯一個對象 -->
+		<association property="teacher" select="com.mickey.mapper.T29_ResultMapTestMapper.selectById" column="tid"/>
+	</resultMap>
+	<select id="selectAllStu" resultMap="mapTest_1">
+		select * from mybateis_t27_student;
+	</select>
+	<select id="selectById" resultType="T27_Teacher" parameterType="int">
+		select * from mybaties_t27_teacher where tid=#{0};
 	</select>
 	
 </mapper>
