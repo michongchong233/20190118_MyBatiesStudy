@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mickey.mapper.T27_TeacherMapper">
+	<select id="selectAll" resultType="T27_Teacher">
+		select * from mybaties_t27_teacher;
+	</select>
+	<select id="selectById" resultType="T27_Teacher" parameterType="int">
+		select * from mybaties_t27_teacher where tid=#{param1};
+	</select>
+	
+</mapper>
+

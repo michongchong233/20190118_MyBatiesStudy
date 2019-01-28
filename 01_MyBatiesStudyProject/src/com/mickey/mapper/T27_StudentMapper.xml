@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mickey.mapper.T27_StudentMapper">
+	<select id="selectByPage" parameterType="T27_PageInfo" resultType="T27_Student">
+		select * from mybateis_t27_student
+		<where>
+			<if test="sname!=null and sname!=''">
+				<bind name="sname" value="'%'+sname+'%'"></bind>
+				and name like #{sname}
+			</if>
+			<if test="tname!=null and tname!=''">
+				<bind name="tname" value="'%'+tname+'%'"></bind>
+				and tid in (select tid from mybaties_t27_teacher where tname like #{tname})
+			</if>
+		</where>
+		limit #{pageStart}, #{pageSize}
+	</select>
+	<select id="selectCountByPageInfo" parameterType="T27_PageInfo" resultType="int">
+		select count(*) from mybateis_t27_student
+		<where>
+			<if test="sname!=null and sname!=''">
+				<bind name="sname" value="'%'+sname+'%'"></bind>
+				and name like #{sname}
+			</if>
+			<if test="tname!=null and tname!=''">
+				<bind name="tname" value="'%'+tname+'%'"></bind>
+				and tid in (select tid from mybaties_t27_teacher where tname like #{tname})
+			</if>
+		</where>
+		limit #{pageStart}, #{pageSize}
+	</select>
+	
+</mapper>
+
