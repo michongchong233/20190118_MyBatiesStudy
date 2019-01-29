@@ -26,6 +26,7 @@ public interface T34_MyBatisComment {
 	@Delete("delete from mybateis_t27_student where id=#{param1}")
 	public int deleteStudent(int id);
 	
+	//多表聯合查詢
 	@Results(value={ 
 	    @Result(id=true,property="id",column="id"),
 	    @Result(property="name",column="name"),
