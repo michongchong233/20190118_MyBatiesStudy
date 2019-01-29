@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.mickey.pojo.T27_Student;
+import com.mickey.pojo.T31_Teacher;
 
 public class T29_ResultMapTest {
 	public static void main(String[] args) throws IOException {
@@ -19,8 +20,11 @@ public class T29_ResultMapTest {
 //		session.selectList("com.mickey.mapper.T29_ResultMapTestMapper.selectAll").stream()
 //				.forEach(t -> System.out.println(t.toString()));
 
-		List<T27_Student> students = session.selectList("com.mickey.mapper.T29_ResultMapTestMapper.selectAllStu");
-		students.stream().forEach(s->System.out.println(s.toString()));
-
+//		List<T27_Student> students = session.selectList("com.mickey.mapper.T29_ResultMapTestMapper.selectAllStu");
+//		students.stream().forEach(s->System.out.println(s.toString()));
+		
+		List<T31_Teacher> teachers = session.selectList("com.mickey.mapper.T31_ForeignKeyMapper.selectAll");
+		teachers.stream().forEach(t->System.out.println(t.toString()));
+		
 	}
 }

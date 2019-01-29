@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mickey.mapper.T31_ForeignKeyMapper">
+	<resultMap id="resultMap_2" type="T31_Teacher">
+		<id column="tid" property="tid" />
+		<result column="tname" property="tname"/>
+		<collection property="student" ofType="T31_Student"><!-- ofType袋表集合的范型 -->
+			<id column="sid" property="id"/>
+			<result column="sname" property="name"/>
+			<result column="sage" property="age"/>
+			<result column="tid" property="tid"/>
+		</collection>
+	</resultMap>
+	<select id="selectAll" resultMap="resultMap_2">
+		select t.tid, tname, s.id sid, s.name sname, s.age sage from mybaties_t27_teacher t left join mybateis_t27_student s on s.tid=t.tid;
+	</select>
+</mapper>
+
