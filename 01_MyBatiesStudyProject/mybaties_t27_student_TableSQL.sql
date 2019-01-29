@@ -51,6 +51,7 @@ select tid from mybaties_t27_teacher where tname like "%tea%";
 
 select s.id, s.name, s.age, t.tname from mybateis_t27_student s left join mybaties_t27_teacher t on s.tid=t.tid;
 select t.tid, tname, s.id sid, s.name sname, s.age sage from mybaties_t27_teacher t left join mybateis_t27_student s on s.tid=t.tid;
+select * from mybaties_t27_teacher left join mybateis_t27_student s on s.tid=t.tid;
 
 drop table mybateis_t27_student;
 drop table mybaties_t27_teacher;

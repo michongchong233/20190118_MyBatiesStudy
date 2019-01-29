@@ -14,7 +14,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</collection>
 	</resultMap>
 	<select id="selectAll" resultMap="resultMap_2">
-		select t.tid, tname, s.id sid, s.name sname, s.age sage from mybaties_t27_teacher t left join mybateis_t27_student s on s.tid=t.tid;
+		select t.tid, tname, s.id sid, s.name sname, s.age sage 
+		from mybaties_t27_teacher t 
+		left join mybateis_t27_student s 
+		on s.tid=t.tid;
+	</select>
+	
+	<!-- 
+	class 33，使用AutoMapping結合別名實現多表查詢
+	查詢出的列名和屬性名必須一樣
+	 -->
+	<select id="selectAll_T33" resultType="T33_Teacher">
+		select 
+			t.tid tid, 
+			t.tname tname, 
+			s.id `student.id`, 
+			s.name `student.name`, 
+			s.age `student.age`, 
+			s.tid `student.tid` 
+		from mybaties_t27_teacher t 
+		left join mybateis_t27_student s 
+		on s.tid=t.tid;
 	</select>
 </mapper>
 
