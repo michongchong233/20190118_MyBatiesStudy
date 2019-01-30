@@ -40,4 +40,66 @@
 		<constructor-arg index="0" value="A"></constructor-arg><!-- 如果沒有變量傳入可省略 -->
 	</bean>
 	
+	<!-- 設值注入(通過setter) -->
+	<bean id="T06_Person_01" class="com.mickey.pojo.T04_Person">
+		<property name="id" value="123"></property>
+		<property name="name" value="Mike"></property>
+	</bean>
+	<bean id="T06_Person_02" class="com.mickey.pojo.T04_Person">
+		<property name="id">
+			<value>123</value>
+		</property>
+		<property name="name">
+			<value>Mike</value>
+		</property>
+	</bean>
+	
+	<bean id="T06_Goods" class="com.mickey.pojo.T06_Goods">
+		<property name="gname" value="MyGoods"></property>
+		<property name="price" value="2333"></property>
+	</bean>
+	<bean id="T06_Person_03" class="com.mickey.pojo.T04_Person">
+		<property name="id" value="123"></property>
+		<property name="name" value="Mike"></property>
+		<property name="set"><!-- 給Set賦值 -->
+			<set>
+				<value>set_1</value>
+				<value>set_2</value>			
+				<value>set_3</value>
+			</set>
+		</property>
+		<property name="list"><!-- 給List賦值 -->
+			<list>
+				<value>list_1</value>
+				<value>list_2</value>			
+				<value>list_3</value>
+			</list>
+		</property>
+		<property name="map"><!-- 給Map賦值 -->
+			<map>
+				<entry key="key_01" value="value_01"></entry>
+				<entry key="key_02" value="value_02"></entry>
+				<entry key="key_03" value="value_03"></entry>
+			</map>
+		</property>
+		<property name="strs"><!-- 給數組賦值 -->
+			<array>
+				<value>array_01</value>
+				<value>array_02</value>
+				<value>array_03</value>
+			</array>
+		</property>
+		<!-- .properties類型 -->
+		<!-- 
+		<property name="demo">
+			<props>
+				<prop key="key_01">value_01</prop>
+				<prop key="key_02">value_02</prop>
+			</props>
+		</property>
+		 -->
+		<property name="goods" ref="T06_Goods"><!-- 依賴注入，DI -->
+		</property>
+	</bean>
+	
 </beans>
