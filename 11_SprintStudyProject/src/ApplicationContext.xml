@@ -102,4 +102,16 @@
 		</property>
 	</bean>
 	
+	<!-- 
+	使用Spring簡化MyBatis
+	數據源封裝類，獲取數據庫連接，需要導spring-jdbc.jar
+	 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    	<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/dbtest?serverTimezone=UTC"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="1234"></property>
+	</bean>
+	
+	
 </beans>
