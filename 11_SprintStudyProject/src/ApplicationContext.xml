@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:c="http://www.springframework.org/schema/c"
+    xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+    <!-- 
+    id，表示獲取對象標識
+    class，創建哪個類的對象(包名+類名)
+     -->
+     <!-- 無參構造器的配置 -->
+	<bean id="T04_Person_01" class="com.mickey.pojo.T04_Person"/>
+	
+	<!-- 
+	有參構造器的配置
+	需要先提供有參數的構造方法
+	 -->
+	<bean id="T04_Person_02" class="com.mickey.pojo.T04_Person">
+		<!-- 
+		以下屬性皆為可選配置，如果符合相同條件的構造器則會調用pojo中最後一個構造器
+		index，代表第幾個參驄，從0開始
+		type，參數型別，除基本數據類型之外都要寫包名+類名，int和java.lang.Integer有區別
+		name，參數名
+		value，賦給參數的值
+		 -->
+		<constructor-arg index="0" type="int" name="id" value="5"></constructor-arg>
+		<constructor-arg index="1" type="java.lang.String" name="name" value="Mickey"></constructor-arg>
+	</bean>
+	
+	<!-- 實例工廠 -->
+	<bean id="T05_PersonFactory" class="com.mickey.pojo.T05_PersonFactory"/>
+	<bean id="T05_Factory_a" factory-bean="T05_PersonFactory" factory-method="createPerson">
+		<constructor-arg index="0" value="A"></constructor-arg><!-- 如果沒有變量傳入可省略 -->
+	</bean>
+	
+	<!-- 靜態工廠 -->
+	<bean id="T05_Factory_Static" class="com.mickey.pojo.T05_PersonFactoryStatic" factory-method="createPerson">
+		<constructor-arg index="0" value="A"></constructor-arg><!-- 如果沒有變量傳入可省略 -->
+	</bean>
+	
+</beans>
