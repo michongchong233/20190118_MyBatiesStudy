@@ -1,12 +1,12 @@
 package com.mickey.test;
 
+import java.util.List;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.mickey.pojo.T04_Person;
-import com.mickey.pojo.T05_PersonExtendsA;
-import com.mickey.pojo.T05_PersonFactory;
-import com.mickey.pojo.T05_PersonFactoryStatic;
+import com.mickey.pojo.T08_Student;
+import com.mickey.service.T08_StudentService;
 
 public class T04_workspaceTest {
 
@@ -16,7 +16,7 @@ public class T04_workspaceTest {
 //		System.out.println(person_01.toString());
 		
 		//委托Spring實例對象，默認在加載ApplicationConext.xml時調用無參構造方法
-		ApplicationContext ac = new ClassPathXmlApplicationContext("ApplicationContext.xml");//加載Spring配置文件
+//		ApplicationContext ac = new ClassPathXmlApplicationContext("ApplicationContext.xml");//加載Spring配置文件
 //		T04_Person person_02 = ac.getBean("T04_Person_02", T04_Person.class);
 //		System.out.println(person_02.toString());
 //		
@@ -33,10 +33,21 @@ public class T04_workspaceTest {
 //		
 //		//委托Spring運用靜態實例對象
 //		T05_PersonExtendsA a4 = (T05_PersonExtendsA) ac.getBean("T05_Factory_Static");
+//		
+//		//設值注入(通過setter)
+//		T04_Person person_03 = ac.getBean("T06_Person_03", T04_Person.class);
+//		System.out.println(person_03.toString());
 		
-		//設值注入(通過setter)
-		T04_Person person_03 = ac.getBean("T06_Person_03", T04_Person.class);
-		System.out.println(person_03.toString());
+		//使用Spring框架整合MyBatis
+		//ClassPathXmlApplicationContext默認去classes文件夾根目錄開始尋找
+		ApplicationContext ac = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		String[] names = ac.getBeanDefinitionNames();//獲取所有Spring管理的Bean名稱
+		for(String name:names) System.out.println(name);
+		T08_StudentService studentService = ac.getBean("T08_StudentService", T08_StudentService.class);
+		List<T08_Student> students = studentService.selectAllStudent();
+		students.stream().forEach(s->System.out.println(s.toString()));
+		
+		
 		
 	}
 
