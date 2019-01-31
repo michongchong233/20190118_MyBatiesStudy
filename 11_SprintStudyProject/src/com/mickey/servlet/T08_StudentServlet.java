@@ -33,7 +33,5 @@ public class T08_StudentServlet extends HttpServlet{
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("list", studentService.selectAllStudent());
 		request.getRequestDispatcher("T08_index.jsp").forward(request, response);
-		
 	}
-	
 }
