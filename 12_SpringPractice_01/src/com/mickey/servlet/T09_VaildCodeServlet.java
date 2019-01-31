@@ -53,6 +53,7 @@ public class T09_VaildCodeServlet extends HttpServlet {
 		}
 		//把驗證碼放入session中
 		HttpSession session = request.getSession();
+		System.out.println(codeStr.toString());
 		session.setAttribute("code", codeStr.toString());
 
 		// 獲取Servlet的輸出流

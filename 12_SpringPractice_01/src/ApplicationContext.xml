@@ -8,5 +8,30 @@
     http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+    <!-- 數據來源信息 -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    	<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+    	<property name="url" value="jdbc:mysql://localhost:3306/dbtest?serverTimezone=UTC"></property>
+    	<property name="username" value="root"></property>
+    	<property name="password" value="1234"></property>
+    </bean>
+    
+    <!-- 創建SqlSessionFactory實體類，其中要包含連接數據庫dataSource的信息 -->
+    <bean id="factory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    	<property name="dataSource" ref="dataSource"></property>
+    </bean>
+    
+    <!-- 掃描器，相當於mybatis的mapper標簽 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+   		<!-- 加載mapper包下的所有文件，名稱就為類名(第一個字母小寫) -->
+    	<property name="basePackage" value="com.mickey.mapper"></property>
+    	<!-- 讓掃描器包含factory的內容 -->
+    	<property name="sqlSessionFactory" ref="factory"></property>
+    </bean>
+    
+    <!-- UserService userService = new UserServiceImpl(); -->
+    <bean id="userService" class="com.mickey.service.impl.UserServiceImpl">
+    	<property name="userMapper" ref="userMapper"></property>
+    </bean>
     
 </beans>
