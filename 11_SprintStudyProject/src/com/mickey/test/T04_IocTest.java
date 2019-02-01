@@ -8,7 +8,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.mickey.pojo.T08_Student;
 import com.mickey.service.T08_StudentService;
 
-public class T04_workspaceTest {
+public class T04_IocTest {
 
 	public static void main(String[] args) {
 		//對象實例的原來方式
