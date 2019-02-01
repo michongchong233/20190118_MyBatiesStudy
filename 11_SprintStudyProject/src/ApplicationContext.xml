@@ -137,6 +137,7 @@
 	<bean id="T11_TryBeforeAdvice" class="com.mickey.advice.T11_TryBeforeAdvice"></bean><!-- 切面，前置通知 -->
 	<bean id="T11_TryAfterAdvice" class="com.mickey.advice.T11_TryAfterAdvice"></bean><!-- 切面，後置通知 -->
 	<bean id="T13_TryExceptionAdvice" class="com.mickey.advice.T13_TryExceptionAdvice"></bean><!-- 切面，異常通裀 -->
+	<bean id="T14_TryExceptionAdvice" class="com.mickey.advice.T14_TryExceptionAdvice"></bean>
 	<aop:config>
 		<!-- 配置切面表达式 -->
 		<aop:pointcut expression="execution(* com.mickey.test.T11_AopDemo.*(..))" id="T11_Pointcut" />
@@ -149,10 +150,14 @@
 		<!-- 配置切面通知，前置通知或後置通知是由類實現的接口決定 -->
 		<aop:advisor advice-ref="T11_TryBeforeAdvice" pointcut-ref="T11_Pointcut"/>
 		<aop:advisor advice-ref="T11_TryAfterAdvice" pointcut-ref="T11_Pointcut"/>
+		<!-- 使用Schema-based方式配置異常通知 -->
+		<!-- 
+		<aop:advisor advice-ref="T14_TryExceptionAdvice" pointcut-ref="T11_Pointcut"/>
+		 -->
 		<!-- 使用AspectJ方式配置異常通知 -->
 		<aop:aspect ref="T13_TryExceptionAdvice"><!-- ref，配置異常通知在哪個類中 -->
 			<!-- method，配置異常通知是使用哪個方法；pointcut-ref，配置所使用的切點；Exception的變量，一定要與方法傳入的形參名一樣 -->
-			<aop:after-throwing method="myException" pointcut-ref="T11_Pointcut" throwing="e"/>
+			<aop:after-throwing method="myException" throwing="e" pointcut-ref="T11_Pointcut"/>
 		</aop:aspect>
 	</aop:config>
 
