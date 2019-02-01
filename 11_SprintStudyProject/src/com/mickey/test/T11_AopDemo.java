@@ -35,5 +35,17 @@ public class T11_AopDemo {
 		System.out.println("執行demo_04()主體內容");
 		return name;
 	}
+	
+	/**
+	 * 測試異常通知
+	 */
+	public void demo_05() throws Exception{
+		try {
+			int i = 5/0;
+			System.out.println("執行demo_05()主體內容");
+		}catch(Exception e){
+//			e.printStackTrace();
+		}
+	}
 
 }
