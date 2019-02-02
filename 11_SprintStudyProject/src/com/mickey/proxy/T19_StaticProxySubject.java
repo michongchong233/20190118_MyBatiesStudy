@@ -1,10 +1,10 @@
 package com.mickey.proxy;
 
 /*
- * 靜態代理類
+ * 靜態代理，代理類
  */
 public class T19_StaticProxySubject implements T19_StaticSubject{
-	T19_StaticRealSubject real = new T19_StaticRealSubject();
+	T19_StaticRealSubject real;
 
 	public T19_StaticProxySubject(T19_StaticRealSubject real) {
 		super();

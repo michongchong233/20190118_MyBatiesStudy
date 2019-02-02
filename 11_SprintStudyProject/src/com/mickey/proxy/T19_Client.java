@@ -1,7 +1,7 @@
 package com.mickey.proxy;
 
 /*
- * 客戶類
+ * 靜態代理，客戶類
  */
 public class T19_Client {
 	public static void main(String[] args) {
