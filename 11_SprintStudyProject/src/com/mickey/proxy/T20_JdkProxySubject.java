@@ -3,6 +3,9 @@ package com.mickey.proxy;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
+/*
+ * 使用JDK自代的動態代理，代理類
+ */
 public class T20_JdkProxySubject implements InvocationHandler{
 	T20_JdkRealSubject real = new T20_JdkRealSubject();
 	
