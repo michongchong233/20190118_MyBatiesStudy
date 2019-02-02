@@ -176,7 +176,7 @@
 			
 			<!-- 使用AspectJ方式要獲取切點參數 -->
 			<aop:pointcut expression="execution(* com.mickey.test.T11_AopDemo.demo_02(int, String)) and args(uid, uname)" id="T17_Pointcut"/><!-- 設定切面表達式 -->
-			<aop:before method="beforeAdviceAspectJ_T17" pointcut-ref="T16_Pointcut" arg-names="uid,uname"/><!-- 前置通知，有參數 -->
+			<aop:before method="beforeAdviceAspectJ_T17" pointcut-ref="T17_Pointcut" arg-names="uid,uname"/><!-- 前置通知，有參數 -->
 		</aop:aspect>
 
 	</aop:config>
