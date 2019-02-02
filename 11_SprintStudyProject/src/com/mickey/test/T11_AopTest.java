@@ -11,11 +11,12 @@ public class T11_AopTest {
 //		aop.demo_01();
 //		aop.demo_02(5, "Mickey");
 //		aop.demo_04("Mickey");
-		try {
-			aop.demo_05();
-		} catch (Exception e) {
-//			e.printStackTrace();
-		}
+//		try {
+//			aop.demo_05();
+//		} catch (Exception e) {
+////			e.printStackTrace();
+//		}
+		aop.demo_06();
 
 	}
 

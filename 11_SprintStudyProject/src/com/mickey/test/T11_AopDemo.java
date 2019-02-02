@@ -43,5 +43,13 @@ public class T11_AopDemo {
 		int i = 5 / 0;
 		System.out.println("執行demo_05()主體內容");
 	}
+	
+	/**
+	 * 測試環繞通知
+	 */
+	public void demo_06() {
+		System.out.println("執行demo_06()主體內容");
+	}
+	
 
 }

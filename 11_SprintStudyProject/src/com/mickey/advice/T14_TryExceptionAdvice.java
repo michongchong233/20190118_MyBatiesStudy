@@ -1,9 +1,5 @@
 package com.mickey.advice;
 
-import java.lang.reflect.Method;
-
-import javax.servlet.ServletException;
-
 import org.springframework.aop.ThrowsAdvice;
 
 /**
