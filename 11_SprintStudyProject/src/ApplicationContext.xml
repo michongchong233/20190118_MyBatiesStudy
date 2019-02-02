@@ -178,7 +178,14 @@
 			<aop:pointcut expression="execution(* com.mickey.test.T11_AopDemo.demo_02(int, String)) and args(uid, uname)" id="T17_Pointcut"/><!-- 設定切面表達式 -->
 			<aop:before method="beforeAdviceAspectJ_T17" pointcut-ref="T17_Pointcut" arg-names="uid,uname"/><!-- 前置通知，有參數 -->
 		</aop:aspect>
-
 	</aop:config>
+	
+	<!-- Spring不會自動去尋找注解，必須告訴Spring哪些包下的類中可能有注解 -->
+	<context:component-scan base-package="com.mickey.advice,com.mickey.test"></context:component-scan>
+	<!-- 
+	proxy-target-class="true"，使用cglib動態代理
+	proxy-target-class="false"，使用jdk動態代理
+	 -->
+	<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
 
 </beans>
