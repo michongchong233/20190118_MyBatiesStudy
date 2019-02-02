@@ -1,4 +1,4 @@
-package com.mickey.advice;
+ package com.mickey.advice;
 
 /**
  * 使用AspectJ的方寫議異常通知
