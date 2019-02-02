@@ -9,14 +9,14 @@ public class T11_AopTest {
 		ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		T11_AopDemo aop = ac.getBean("T11_AopDemo", T11_AopDemo.class);
 //		aop.demo_01();
-//		aop.demo_02(5, "Mickey");
+		aop.demo_02(5, "Mickey");
 //		aop.demo_04("Mickey");
 //		try {
 //			aop.demo_05();
 //		} catch (Exception e) {
 ////			e.printStackTrace();
 //		}
-		aop.demo_06();
+//		aop.demo_06();
 
 	}
 

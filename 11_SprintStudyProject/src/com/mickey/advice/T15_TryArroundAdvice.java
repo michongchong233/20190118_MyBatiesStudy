@@ -3,7 +3,7 @@ package com.mickey.advice;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
-public class T15_ArroundAdvice implements MethodInterceptor {
+public class T15_TryArroundAdvice implements MethodInterceptor {
 	@Override
 	public Object invoke(MethodInvocation arg0) throws Throwable {
 		System.out.println("ArroundAdvice-Before");

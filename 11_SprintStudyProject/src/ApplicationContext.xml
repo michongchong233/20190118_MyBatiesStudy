@@ -138,7 +138,8 @@
 	<bean id="T11_TryAfterAdvice" class="com.mickey.advice.T11_TryAfterAdvice"></bean><!-- 切面，後置通知 -->
 	<bean id="T13_TryExceptionAdvice" class="com.mickey.advice.T13_TryExceptionAdvice"></bean><!-- 切面，異常通知 -->
 	<bean id="T14_TryExceptionAdvice" class="com.mickey.advice.T14_TryExceptionAdvice"></bean><!-- 切面，異常通知 -->
-	<bean id="T15_ArroundAdvice" class="com.mickey.advice.T15_ArroundAdvice"></bean><!-- 切面，環繞通知 -->
+	<bean id="T15_TryArroundAdvice" class="com.mickey.advice.T15_TryArroundAdvice"></bean><!-- 切面，環繞通知 -->
+	<bean id="T16_TryAspectJAdvice" class="com.mickey.advice.T16_TryAspectJAdvice"></bean><!-- 切面 -->
 	<aop:config>
 		<!-- 配置切面表达式 -->
 		<aop:pointcut expression="execution(* com.mickey.test.T11_AopDemo.*(..))" id="T11_Pointcut" />
@@ -154,7 +155,7 @@
 		<!-- 使用Schema-based方式配置異常通知 -->
 		<aop:advisor advice-ref="T14_TryExceptionAdvice" pointcut-ref="T11_Pointcut"/>
 		<!-- 使用Schema-based方式配置環繞通知 -->
-		<aop:advisor advice-ref="T15_ArroundAdvice" pointcut-ref="T11_Pointcut"/>
+		<aop:advisor advice-ref="T15_TryArroundAdvice" pointcut-ref="T11_Pointcut"/>
 		
 		<!-- 使用AspectJ方式配置異常通知 -->
 		<aop:aspect ref="T13_TryExceptionAdvice"><!-- ref，配置異常通知在哪個類中 -->
@@ -163,6 +164,21 @@
 			<!-- method，配置異常通知是使用哪個方法；pointcut-ref，配置所使用切點；Exception的變量，一定要與方法傳入的形參名一樣 -->
 			<aop:after-throwing method="myException" throwing="e" pointcut-ref="T13_Pointcut"/>
 		</aop:aspect>
+		
+		<aop:aspect ref="T16_TryAspectJAdvice">
+			<aop:pointcut expression="execution(* com.mickey.test.T11_AopDemo.*(..))" id="T16_Pointcut"/><!-- 設定切面表達式 -->
+			<!-- execution(* com.mickey.test.T11_AopDemo.demo_02(int, String) and args(uid, uname)) -->
+			<aop:before method="beforeAdviceAspectJ" pointcut-ref="T16_Pointcut"/><!-- 前置通知 -->
+			<aop:before method="beforeAdviceAspectJ" pointcut-ref="T16_Pointcut"/><!-- 前置通知 -->
+			<aop:after method="afterAdviceAspectJ" pointcut-ref="T16_Pointcut"/><!-- 後置通知，若有異常也執行 -->
+			<aop:after-returning method="afterAdviceReturningAspectJ" pointcut-ref="T16_Pointcut"/><!-- 後置通知，若有異常不執行 -->
+			<aop:around method="aroundAdviceAspectJ" pointcut-ref="T16_Pointcut"/><!--環繞通知 -->
+			
+			<!-- 使用AspectJ方式要獲取切點參數 -->
+			<aop:pointcut expression="execution(* com.mickey.test.T11_AopDemo.demo_02(int, String)) and args(uid, uname)" id="T17_Pointcut"/><!-- 設定切面表達式 -->
+			<aop:before method="beforeAdviceAspectJ_T17" pointcut-ref="T16_Pointcut" arg-names="uid,uname"/><!-- 前置通知，有參數 -->
+		</aop:aspect>
+
 	</aop:config>
 
 </beans>
