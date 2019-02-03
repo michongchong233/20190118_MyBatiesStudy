@@ -192,5 +192,10 @@
 	<bean id="T22_UserService" class="com.mickey.service.impl.T22_UserServiceImpl">
 		<property name="um" ref="t22_UserMapper"></property>
 	</bean>
+	
+	<!-- 自動注入 -->
+	<bean id="t23_Goods" class="com.mickey.pojo.T23_Goods"></bean>
+	<bean id="t23_Person" class="com.mickey.pojo.T23_Person" autowire="byName">
+	</bean>
 
 </beans>
