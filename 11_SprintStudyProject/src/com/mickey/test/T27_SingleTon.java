@@ -7,11 +7,7 @@ public class T27_SingleTon {
 	// 不能讓其他類直接調用此變量，因此使用private
 	private static T27_SingleTon singleTon = new T27_SingleTon();
 
-	/*
-	 * 方法名和類名相同，並且無返回值 其他類不能實例化這個類的對象-->設為private 必須要對外提供訪問入口
-	 */
-	private T27_SingleTon() {
-	}
+	private T27_SingleTon() {}
 
 	/*
 	 * 實例方法，實例方法必須通過對象來調用 要設置方法為靜態方法(因為無法通過new來實例化對象)
