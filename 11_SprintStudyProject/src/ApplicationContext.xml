@@ -194,5 +194,8 @@
 	<!-- 自動注入 -->
 	<bean id="t23_Goods" class="com.mickey.pojo.T23_Goods"></bean>
 	<bean id="t23_Person" class="com.mickey.pojo.T23_Person" autowire="byName"></bean>
+	
+	<!-- scope屬性，<bean>標簽對應的對象默認是單例的 -->
+	<bean id="t25_ScopeSingleton" class="com.mickey.pojo.T25_ScopeSingleton" scope="prototype"></bean>
 
 </beans>

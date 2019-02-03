@@ -5,6 +5,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.mickey.pojo.T23_Person;
 import com.mickey.pojo.T24_User;
+import com.mickey.pojo.T25_ScopeSingleton;
 
 public class T23_AutoImportTest {
 
@@ -16,6 +17,14 @@ public class T23_AutoImportTest {
 		//測試class 24，注入.properties文件內容
 		T24_User user = ac.getBean("t24_User", T24_User.class);
 		System.out.println(user.toString());
+		
+		//測試class 25，<bean scope="">
+		T25_ScopeSingleton test1 = ac.getBean("t25_ScopeSingleton", T25_ScopeSingleton.class);
+		T25_ScopeSingleton test2 = ac.getBean("t25_ScopeSingleton", T25_ScopeSingleton.class);
+		System.out.println(test1 == test2);//<bean>標簽對應的對象默認是單例的
+		System.out.println("test1: " + test1);
+		System.out.println("test2: " + test2);
+		
 	}
 
 }
