@@ -10,8 +10,8 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context-4.1.xsd
     http://www.springframework.org/schema/aop            
-    http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
-    ">
+    http://www.springframework.org/schema/aop/spring-aop-3.1.xsd"
+>
 	<!-- id，表示獲取對象標識 class，創建哪個類的對象(包名+類名) -->
 	<!-- 無參構造器的配置 -->
 	<bean id="T04_Person_01" class="com.mickey.pojo.T04_Person" />
@@ -99,16 +99,14 @@
 		</property>
 	</bean>
 
+	<context:property-placeholder location="classpath:T24_db.properties,classpath:T24_demo.properties"/><!-- 加載屬性文件 -->
 	<!-- 使用Spring簡化MyBatis 數據源封裝類，獲取數據庫連接，需要導spring-jdbc.jar -->
 	<!-- 數據庫來源信息 -->
-	<bean id="T08_DataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName"
-			value="com.mysql.cj.jdbc.Driver" />
-		<property name="url"
-			value="jdbc:mysql://localhost:3306/dbtest?serverTimezone=UTC"></property>
-		<property name="username" value="root"></property>
-		<property name="password" value="1234"></property>
+	<bean id="T08_DataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driver}"></property>
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="username" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
 	</bean>
 	
 	<!-- 創建SqlSessionFactory的實體類，目的連接數據庫，配置此bean標簽需另外下載mybatis-spring.jar -->
@@ -120,8 +118,8 @@
 	<!-- 掃描器，負責掃描XXXMapper.xml，相當於是<mappers>中<package> -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"><!-- 不需要被別人引用的類就不用寫id屬性(默認為類名) -->
 		<property name="basePackage" value="com.mickey.mapper"></property><!-- 設置要掃描哪個包 -->
-		<property name="sqlSessionFactory"
-			ref="T08_DataSourceFactory"></property><!-- 讓factory包含掃描器的內容 -->
+		<!-- <property name="sqlSessionFactory" ref="T08_DataSourceFactory"></property> --><!-- 讓factory包含掃描器的內容 -->
+		<property name="sqlSessionFactoryBeanName" value="T08_DataSourceFactory"></property>
 	</bean>
 
 	<!-- 實例Service接口，T08_StudentService stu = new T08_StudentServiceImpl(); 
@@ -181,7 +179,7 @@
 	</aop:config>
 	
 	<!-- Spring不會自動去尋找注解，必須告訴Spring哪些包下的類中可能有注解 -->
-	<context:component-scan base-package="com.mickey.advice,com.mickey.test"></context:component-scan>
+	<context:component-scan base-package="com.mickey.advice,com.mickey.test,com.mickey.pojo"></context:component-scan>
 	<!-- 
 	proxy-target-class="true"，使用cglib動態代理
 	proxy-target-class="false"，使用jdk動態代理
@@ -195,7 +193,6 @@
 	
 	<!-- 自動注入 -->
 	<bean id="t23_Goods" class="com.mickey.pojo.T23_Goods"></bean>
-	<bean id="t23_Person" class="com.mickey.pojo.T23_Person" autowire="byName">
-	</bean>
+	<bean id="t23_Person" class="com.mickey.pojo.T23_Person" autowire="byName"></bean>
 
 </beans>
