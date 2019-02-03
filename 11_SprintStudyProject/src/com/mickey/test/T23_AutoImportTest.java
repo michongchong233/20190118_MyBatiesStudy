@@ -25,6 +25,13 @@ public class T23_AutoImportTest {
 		System.out.println("test1: " + test1);
 		System.out.println("test2: " + test2);
 		
+		//測試class 26，單例模式_懶漢式
+		T26_SingleTon singl_01 = T26_SingleTon.getInstance();
+		T26_SingleTon singl_02 = T26_SingleTon.getInstance();
+		System.out.println("singl_01: " + singl_01);
+		System.out.println("singl_02: " + singl_02);
+		
+		
 	}
 
 }
