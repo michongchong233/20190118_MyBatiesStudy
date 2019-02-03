@@ -217,7 +217,7 @@
 			<tx:method name="ins*"/><!-- 方法以ins開頭就進行事務管理 -->
 			<tx:method name="del*"/>
 			<tx:method name="upd*"/>
-			<tx:method name="*"/>
+			<tx:method name="*" read-only="true"/><!-- read-only，只讀事務 -->
 		</tx:attributes>
 	</tx:advice>
 
