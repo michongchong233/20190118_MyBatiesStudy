@@ -110,6 +110,7 @@
 		<property name="username" value="root"></property>
 		<property name="password" value="1234"></property>
 	</bean>
+	
 	<!-- 創建SqlSessionFactory的實體類，目的連接數據庫，配置此bean標簽需另外下載mybatis-spring.jar -->
 	<bean id="T08_DataSourceFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -120,8 +121,7 @@
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"><!-- 不需要被別人引用的類就不用寫id屬性(默認為類名) -->
 		<property name="basePackage" value="com.mickey.mapper"></property><!-- 設置要掃描哪個包 -->
 		<property name="sqlSessionFactory"
-			ref="T08_DataSourceFactory"></property><!-- 
-			讓factory包含掃描器的內容 -->
+			ref="T08_DataSourceFactory"></property><!-- 讓factory包含掃描器的內容 -->
 	</bean>
 
 	<!-- 實例Service接口，T08_StudentService stu = new T08_StudentServiceImpl(); 
@@ -187,5 +187,10 @@
 	proxy-target-class="false"，使用jdk動態代理
 	 -->
 	<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
+	
+	<!-- class 22，UserService實例化 -->
+	<bean id="T22_UserService" class="com.mickey.service.impl.T22_UserServiceImpl">
+		<property name="um" ref="t22_UserMapper"></property>
+	</bean>
 
 </beans>
