@@ -12,11 +12,11 @@
     http://www.springframework.org/schema/mvc
     http://www.springframework.org/schema/mvc/spring-mvc.xsd
 ">
+	<!-- 以前配置springmvc的方法，類需要繼承Controller的接口 -->
 	<!-- 將邏輯類交由springmvc管理 -->
 	<bean id="t02_FirstSpringMvcController" class="com.mickey.controller.T02_FirstSpringMvcController"></bean>
 	<!-- 配置HandlerAdapter的實現類 -->
 	<bean class="org.springframework.web.servlet.handler.SimpleServletHandlerAdapter"></bean>
-
 	<!-- SimpleUrlHandlerMapping，用於解析請求 -->
 	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="urlMap">
@@ -27,7 +27,7 @@
 		</property>
 	</bean>
 	
-	
+	<!-- 使用注解的方式將類交由springmvc管理 -->
 	<!-- 掃描注解 -->
 	<context:component-scan base-package="com.mickey.controller"></context:component-scan>
 	<!-- 注解驅動，包含HandlerMapping和HandlerAdapter -->

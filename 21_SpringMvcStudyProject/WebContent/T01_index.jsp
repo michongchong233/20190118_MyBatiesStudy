@@ -12,6 +12,7 @@
 	<a href="01_test?control=demo2">跳轉2</a>
 	<a href="01_test?control=demo3">跳轉3</a>
 	<a href="01_test?control=demo4">跳轉4</a>
-
+	<br>
+	${str}
 </body>
 </html>
