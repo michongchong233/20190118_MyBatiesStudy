@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(
-		urlPatterns = { "/" }, //ぃ筁耾jsp碞琌.jspゅン常ぃǐservlet
-		initParams = { 
-				@WebInitParam(name = "01_test", value = "01_test")
-		})
+//@WebServlet(
+//		urlPatterns = { "/" }, //ぃ筁耾jsp碞琌.jspゅン常ぃǐservlet
+//		initParams = { 
+//				@WebInitParam(name = "01_test", value = "01_test")
+//		})
 /*
  * front砞璸家Α玡狠砞璸家ΑSpringMVC碞琌沮砞璸家Α琜
  */
