@@ -92,5 +92,11 @@ public class T04_AnnotationController {
 		System.out.println("執行demo_09 " + name + " " + age_new);
 		return "/T01_index.jsp";
 	}
+	
+	@RequestMapping("07_test")
+	public String demo_10() {
+		System.out.println("執行demo_10，重定向");
+		return "redirect:/T01_index.jsp";
+	}
 
 }
