@@ -41,5 +41,7 @@
 		<property name="prefix" value="/" />
         <property name="suffix" value=".jsp" />
 	</bean>
+	<bean class="com.mickey.pojo.T05_People"></bean>
+
 	
 </beans>

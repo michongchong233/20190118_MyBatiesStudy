@@ -1,13 +1,16 @@
 package com.mickey.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mickey.pojo.T05_People;
 import com.mickey.pojo.T06_Demo;
@@ -85,32 +88,41 @@ public class T04_AnnotationController {
 		return "/T01_index.jsp";
 	}
 
-	@RequestMapping("06_04_test/{name}/{age}")//請求格式
-	//@PathVariable中一定要和請求式對應，否則需要另訂名稱
-	//使用@PathVariable獲取@RequestMapping中內容，默認按照方法參數名稱去尋找
+	@RequestMapping("06_04_test/{name}/{age}") // 請求格式
+	// @PathVariable中一定要和請求式對應，否則需要另訂名稱
+	// 使用@PathVariable獲取@RequestMapping中內容，默認按照方法參數名稱去尋找
 	public String demo_09(@PathVariable String name, @PathVariable("age") int age_new) {
 		System.out.println("執行demo_09 " + name + " " + age_new);
 		return "/T01_index.jsp";
 	}
-	
+
 	@RequestMapping("07_test")
 	public String demo_10() {
 		System.out.println("執行demo_10，重定向");
 		return "redirect:/T01_index.jsp";
 	}
-	
-	//視圖解析器，不加任何前綴時使用自定義視圖解析器，反之使用系統默認視圖解析器
+
+	// 視圖解析器，不加任何前綴時使用自定義視圖解析器，反之使用系統默認視圖解析器
 	@RequestMapping("08_01_test")
 	public String demo_11() {
 		System.out.println("執行demo_11，視圖解析器");
 		return "T01_index";
 	}
-	
-	//在controller跳轉至另一個controller
+
+	// 在controller跳轉至另一個controller
 	@RequestMapping("08_02_test")
 	public String demo_12() {
 		System.out.println("執行demo_12，視圖解析器");
 		return "forward:08_01_test";
+	}
+
+	@RequestMapping(value = "09_01_test")
+	@ResponseBody
+	public T05_People demo_13(HttpServletResponse response) throws IOException {
+		T05_People p = new T05_People();
+		p.setName("米蟲");
+		p.setAge(123);
+		return p;
 	}
 
 }
