@@ -36,4 +36,10 @@
 	<mvc:resources location="/js/" mapping="/js/**"></mvc:resources><!-- 代表js文件夾下所有的文件都不攔截 -->
 	<mvc:resources location="/css/" mapping="/css/**"></mvc:resources>
 	<mvc:resources location="/images/" mapping="/images/**"></mvc:resources>
+	<!-- 自定義視圖解析器 -->
+	<bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/" />
+        <property name="suffix" value=".jsp" />
+	</bean>
+	
 </beans>

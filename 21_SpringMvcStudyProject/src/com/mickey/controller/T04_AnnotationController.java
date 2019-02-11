@@ -98,5 +98,19 @@ public class T04_AnnotationController {
 		System.out.println("執行demo_10，重定向");
 		return "redirect:/T01_index.jsp";
 	}
+	
+	//視圖解析器，不加任何前綴時使用自定義視圖解析器，反之使用系統默認視圖解析器
+	@RequestMapping("08_01_test")
+	public String demo_11() {
+		System.out.println("執行demo_11，視圖解析器");
+		return "T01_index";
+	}
+	
+	//在controller跳轉至另一個controller
+	@RequestMapping("08_02_test")
+	public String demo_12() {
+		System.out.println("執行demo_12，視圖解析器");
+		return "forward:08_01_test";
+	}
 
 }
