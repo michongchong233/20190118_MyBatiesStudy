@@ -4,10 +4,13 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import com.mickey.mapper.T10_MenuMapper;
 import com.mickey.pojo.T10_Menu;
 import com.mickey.service.T10_MenuService;
 
+@Service
 public class T10_MenuServiceImpl implements T10_MenuService {
 	@Resource
 	public T10_MenuMapper menuMapper;

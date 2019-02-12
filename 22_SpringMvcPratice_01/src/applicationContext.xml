@@ -16,14 +16,15 @@
 	http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
     ">
     <!-- 掃描注解 -->
-	<context:component-scan base-package="con.mickey.service.impl"></context:component-scan>
+	<context:component-scan base-package="com.mickey.service.impl"></context:component-scan>
 	<!-- 加載屬性文件，並設置數據庫連線信息 -->
-	<context:property-placeholder location="classpath:db.properties"/>
+	<context:property-placeholder location="classpath:db.properties"/><!-- 加載屬性文件 -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
-		<property name="url" value="${jdbc.url}"></property>
-		<property name="username" value="${jdbc.username}"></property>
-		<property name="password" value="${jdbc.password}"></property>
+		<!-- jdbc:mysql://localhost:3306/dbtest?useSSL=false&serverTimezone=UTC -->
+		<property name="url" value="jdbc:mysql://localhost:3306/dbtest?serverTimezone=UTC"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="1234"></property>
 	</bean>
 	<!-- sqlSessionFactory -->
 	<bean id="factory" class="org.mybatis.spring.SqlSessionFactoryBean">
