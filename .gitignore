@@ -4,6 +4,4 @@
 /.recommenders/index/http___download_eclipse_org_recommenders_models_photon_/segments.gen
 /.recommenders/caches/identified-project-coordinates.json
 *.gen
-00_OriginWebProject/.classpath
-00_OriginWebProjectFor8/.classpath
-01_MyBatiesStudyProject/.classpath
+*.classpath
