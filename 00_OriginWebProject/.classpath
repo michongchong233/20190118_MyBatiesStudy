@@ -4,10 +4,10 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk-11.0.2"/>
-	<classpathentry kind="lib" path="D:/Code學習/myCoding/20190118_MyBatiesStudy/00_OriginWebProject/WebContent/WEB-INF/lib/javax.servlet.jsp.jstl-api-1.2.1.jar"/>
-	<classpathentry kind="lib" path="D:/Code學習/myCoding/20190118_MyBatiesStudy/00_OriginWebProject/WebContent/WEB-INF/lib/jstl.jar"/>
-	<classpathentry kind="lib" path="D:/Code學習/myCoding/20190118_MyBatiesStudy/00_OriginWebProject/WebContent/WEB-INF/lib/jstl-impl.jar"/>
-	<classpathentry kind="lib" path="D:/Code學習/myCoding/20190118_MyBatiesStudy/00_OriginWebProject/WebContent/WEB-INF/lib/mysql-connector-java-8.0.13.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk-11.0.2">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
