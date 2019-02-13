@@ -44,7 +44,17 @@
 	</bean>
 	<bean class="com.mickey.pojo.T05_People"></bean>
 	<!-- MultipartResovler解析器 -->
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="50"></property><!-- 最大上傳字節數 -->
+	</bean>
+	<!-- 異常解析器 -->
+	<bean id="simpleMappingExceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">T14_Error</prop>
+			</props>
+		</property>
+	</bean>
 
 	
 </beans>

@@ -2,6 +2,7 @@ package com.mickey.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -32,9 +33,16 @@ public class T13_DownloadController {
 
 	// class 14，文件上傳
 	@RequestMapping("uploadFile")
-	// class 14，文件上傳
-	public String uploadFile(String name, MultipartFile file) {
+	public String uploadFile(String name, MultipartFile file) throws IOException {
 		System.out.println("name: " + name);
-		return "index";
+		String fileName = file.getOriginalFilename();//獲取文件名
+		String suffix = fileName.substring(fileName.lastIndexOf("."));//獲取文件名後
+		if(suffix.equalsIgnoreCase(".png")) {//判斷文件上傳類型
+			String uuid = UUID.randomUUID().toString();//隨機文件名
+			FileUtils.copyInputStreamToFile(file.getInputStream(), new File("D:/"+uuid+suffix));
+			return "T01_index";
+		}else {
+			return "T14_Error";
+		}
 	}
 }
