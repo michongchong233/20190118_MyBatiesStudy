@@ -55,6 +55,12 @@
 			</props>
 		</property>
 	</bean>
-
+	<!-- 配置攔截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/17_01_test"/><!-- 設置需要被攔截的controller -->
+			<bean class="com.mickey.interceptor.T17_Interceptor"></bean><!-- 要使用的攔截器 -->
+		</mvc:interceptor>
+	</mvc:interceptors>
 	
 </beans>
