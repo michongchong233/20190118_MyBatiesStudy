@@ -25,7 +25,7 @@
   	<url-pattern>/</url-pattern><!-- 攔截所有除jsp外的請求 -->
   </servlet-mapping>
   
-  <!-- 定符編碼過濾器 -->
+  <!-- 字符編碼過濾器 -->
   <filter>
   	<filter-name>encoding</filter-name>
   	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
