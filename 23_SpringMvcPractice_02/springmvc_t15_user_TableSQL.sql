@@ -9,6 +9,8 @@ create table springmvc_t15_user(
 );
 
 select * from springmvc_t15_user;
+select * from springmvc_t15_user 
+	where id=1 and username='mickey' and password='2333' and photo='';
 
 insert into springmvc_t15_user values
 (default, 'testuser_01', '1234', 'testPhoto_01'),

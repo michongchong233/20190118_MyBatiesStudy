@@ -108,4 +108,18 @@ public class UserController {
 		}
 	}
 
+	@RequestMapping("doLogin")
+	public String doLogin(HttpServletRequest request) {
+		String page = "error";
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		System.out.println(username + " " + password);
+		User user = userServiceImpl.doLogin(username, password);
+		System.out.println(user.toString());
+		if (user != null) {// 如果有此用戶轉到登入成功頁面
+			page = "loginSuccess";
+		}
+		return page;
+	}
+
 }

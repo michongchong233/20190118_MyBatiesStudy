@@ -27,8 +27,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int doDownloadFile(String photo) {
-		User user = userMapper.selectUserByPhoto(photo);
+		User user = userMapper.selectBy(0, null, null, photo);
 		return userMapper.updateDownloadNum(user.getId(), user.getDownloadNum()+1);
+	}
+
+	@Override
+	public User doLogin(String username, String password) {
+		return userMapper.selectBy(0, username, password, null);
 	}
 
 	

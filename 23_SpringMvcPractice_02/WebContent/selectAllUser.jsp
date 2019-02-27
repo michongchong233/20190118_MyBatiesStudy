@@ -14,7 +14,7 @@
 			//parent()父標簽
 			//prev()第一個兄弟標簽
 			//jquery中規笵，對象名以$開 頭
-			var $td = $(this).parent().prev();
+			var $td = $(this).parent().next();//下一個兄弟標簽
 			//html()返回值字符串
 			$td.html(parseInt($td.html()) + 1);
 		});
