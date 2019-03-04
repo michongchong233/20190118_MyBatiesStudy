@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mickey.mapper.MenuMapper">
+	<select id="selectUserMenu" resultType="com.mickey.pojo.Menu" parameterType="int">
+		select * from t10_menu m right join rbac_t01_menu_user u 
+		on m.id = u.mid
+    	where u.uid = #{param1};
+	</select>
+	<select id="selectUserMenuByRbac" resultType="com.mickey.pojo.Menu" parameterType="int">
+		select 
+			m.id	as id,
+		    m.name	as name,
+		    m.pid	as pid
+		from springmvc_t15_user as u 
+			left join rbac_t03_user_actor as ua 
+				on u.id = ua.uid
+			left join rbac_t03_actor as a
+				on ua.aid = a.id
+			left join rbac_t03_actor_menu as am
+				on ua.aid = am.aid
+			left join t10_menu as m
+				on am.mid = m.id
+		where u.id = #{param1}
+	</select>
+
+</mapper>
