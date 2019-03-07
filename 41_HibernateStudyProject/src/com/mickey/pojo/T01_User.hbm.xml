@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-7-8 1:31:59 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping package="com.mickey.pojo">
+	<class name="T01_User" table="springmvc_t15_user">
+		<id name="id" column="id" type="int">
+			<!-- <column name="id" not-null="false" /> -->
+			<generator class="native" /><!-- increment -->
+		</id>
+		<property name="username" type="string" lazy="false">
+			<column name="username" length="255" />
+		</property>
+		<property name="password" type="string" lazy="false">
+			<column name="password" length="255" />
+		</property>
+		<property name="photo" type="string">
+			<column name="photo" length="255" />
+		</property>
+		<property name="downloadNum" type="int">
+			<column name="downloadNum"></column>
+		</property>
+		
+	</class>
+</hibernate-mapping>
