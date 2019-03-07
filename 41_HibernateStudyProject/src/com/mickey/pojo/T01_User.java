@@ -6,7 +6,7 @@ public class T01_User {
 	private String password;
 	private String photo;
 	private int downloadNum;
-
+	
 	public int getId() {
 		return id;
 	}
