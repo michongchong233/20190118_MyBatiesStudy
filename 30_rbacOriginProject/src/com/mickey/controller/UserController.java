@@ -62,7 +62,7 @@ public class UserController {
 		String page = "redirect:/error.jsp";
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-//		System.out.println(username + " " + password);
+		System.out.println(username + " " + password);
 		User user = userServiceImpl.doLogin(username, password);
 		if (user != null) {//登入成功，將用戶信息存至cookie並轉至有權限的菜單列表
 			System.out.println(user.toString());
