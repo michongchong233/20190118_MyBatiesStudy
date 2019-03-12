@@ -1,10 +1,11 @@
 package com.mickey.test;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.jboss.logging.Logger;
 
 import com.mickey.pojo.T01_User;
 import com.mickey.pojo.T02_SessionFactorySingleton;
@@ -14,7 +15,7 @@ public class T01_FirstHibernateTest {
 //		insertUserTest("Anna" ,"4321");
 //		insertUserTestUseSingleton("Singleton" ,"34566");
 //		insertUserTestUseSingleton_3("changUanme", "223344");
-		selectUserTestUse_3("mike", "1234");
+//		selectUserTestUse_3("mike", "1234");
 	}
 
 	/**
@@ -57,7 +58,7 @@ public class T01_FirstHibernateTest {
 			session = factory.openSession();
 			tra = session.beginTransaction();// 開啟事務管理
 			T01_User user = new T01_User(0, username, password, null, 0);
-			Logger.getLogger(T01_FirstHibernateTest.class).debug(user.toString());
+//			Logger.getLogger(T01_FirstHibernateTest.class).debug(user.toString());
 			session.save(user);
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -83,7 +84,7 @@ public class T01_FirstHibernateTest {
 			session = factory.openSession();
 			tra = session.beginTransaction();// 開啟事務管理
 			T01_User user = new T01_User(0, "testUsername", "testPassword", null, 0);// 對象為游離態
-			Logger.getLogger(T01_FirstHibernateTest.class).debug(user.toString());
+//			Logger.getLogger(T01_FirstHibernateTest.class).debug(user.toString());
 			session.save(user);// 對象與session關連，為持久態，在持久態所做出的變更hibernate同步至數據庫
 			user.setUsername(username);
 			user.setPassword(password);
@@ -108,7 +109,7 @@ public class T01_FirstHibernateTest {
 	 * @param password
 	 * @return
 	 */
-	private static int selectUserTestUse_3(String username, String password) {
+	private static T01_User selectUserTestUse_3(String username, String password) {
 		Session session = null;
 		Transaction tra = null;
 		String method = "get";
@@ -135,11 +136,13 @@ public class T01_FirstHibernateTest {
 			ex.printStackTrace();
 			tra.rollback();
 		} finally {
+//			Logger logger = Logger.getLogger(T01_FirstHibernateTest.class);
+//			logger.debug("debug message");//一般在方法內容使用
 			tra.commit();
 //			tra.rollback();
 			session.close();
 		}
-		return 0;
+		return user;
 	}
-
+	
 }

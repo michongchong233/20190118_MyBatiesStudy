@@ -9,7 +9,7 @@
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/dbtest?serverTimezone=UTC</property>
         <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">1234</property>
+        <property name="hibernate.connection.password">s70103ss</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         
 		<!-- 物件和資料表映射文件 -->
