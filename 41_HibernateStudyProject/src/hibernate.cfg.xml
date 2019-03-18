@@ -15,5 +15,6 @@
 		<!-- 物件和資料表映射文件 -->
 		<mapping resource="com/mickey/pojo/T01_User.hbm.xml" />
 		<mapping resource="com/mickey/pojo/T04_Student.hbm.xml" />
+		<mapping resource="com/mickey/pojo/T04_Person.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

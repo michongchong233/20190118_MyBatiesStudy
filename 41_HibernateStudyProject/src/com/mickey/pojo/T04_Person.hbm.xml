@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.mickey.pojo">
+	<class name="T04_Person" table="hibernate_t04_person" lazy="true">
+		<id name="id" column="id" type="int">
+			<generator class="native"></generator>
+		</id>
+		<property name="name" column="name" type="string"></property>
+		<!-- 組合關系映射 -->
+		<component name="address" class="com.mickey.pojo.T04_Address">
+			<property name="city" column="city" type="string"></property>
+			<property name="street" column="street" type="string"></property>
+			<property name="zipcode" column="zipcode" type="int"></property>
+		</component>
+	</class>
+</hibernate-mapping>
+

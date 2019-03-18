@@ -1,7 +1,5 @@
 package com.mickey.test;
 
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -9,6 +7,8 @@ import org.hibernate.cfg.Configuration;
 
 import com.mickey.pojo.T01_User;
 import com.mickey.pojo.T02_SessionFactorySingleton;
+import com.mickey.pojo.T04_Address;
+import com.mickey.pojo.T04_Person;
 import com.mickey.pojo.T04_Student;
 import com.mickey.pojo.T04_StudentId;
 
@@ -18,7 +18,8 @@ public class T01_FirstHibernateTest {
 //		insertUserTestUseSingleton("Singleton" ,"34566");
 //		insertUserTestUseSingleton_3("changUanme", "223344");
 //		selectUserTestUse_3("mike", "1234");
-		hibernateIncrement_4();
+//		hibernateIncrement_4();
+		objectRelationalMapping_4();
 	}
 
 	/**
@@ -155,21 +156,54 @@ public class T01_FirstHibernateTest {
 		SessionFactory factory = T02_SessionFactorySingleton.getSessionFactory();
 		Session session = factory.openSession();
 		Transaction tra = session.beginTransaction();
-		try{
+		try {
 			T04_Student student = new T04_Student();
 			T04_StudentId studentId = new T04_StudentId();
-			studentId.setFirstname("sony");
-			studentId.setLastname("asus");
+			studentId.setFirstname("mickey");
+			studentId.setLastname("mini");
 			student.setColumnKey(studentId);
-			student.setMajor("android");
+			student.setMajor("java");
 			session.save(student);
 			tra.commit();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			tra.rollback();
 			e.printStackTrace();
-		}finally {
+		} finally {
 			session.close();
 		}
+	}
+
+	/*
+	 * 組合關系映射，此方法用得不多，比蠅多會用join來做 缺點：很多冗餘數據
+	 * 大對象映射：
+	 * https://blog.csdn.net/yiguang_820/article/details/79088524
+	 * Clob，文本大對象，最長4g
+	 * 	private Clob article;
+	 * Blob，二進制數據大對象，最長4g
+	 * 	private Blob picture;
+	 */
+	private static void objectRelationalMapping_4() {
+		SessionFactory factory = T02_SessionFactorySingleton.getSessionFactory();
+		Session session = factory.openSession();
+		Transaction tra = session.beginTransaction();
+		try {
+			T04_Address address = new T04_Address();
+			T04_Person person = new T04_Person();
+			address.setCity("台北市");
+			address.setStreet("中山路");
+			address.setZipcode(123456);
+			person.setName("mickey");
+			person.setAddress(address);
+			System.out.println(person.toString());
+			session.save(person);
+			tra.commit();
+		} catch (Exception e) {
+			e.getStackTrace();
+			tra.rollback();
+		} finally {
+			session.close();
+		}
+
 	}
 
 }
