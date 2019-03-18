@@ -1,20 +1,24 @@
 package com.mickey.test;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.jboss.logging.Logger;
 
 import com.mickey.pojo.T01_User;
 import com.mickey.pojo.T02_SessionFactorySingleton;
+import com.mickey.pojo.T04_Student;
+import com.mickey.pojo.T04_StudentId;
 
 public class T01_FirstHibernateTest {
 	public static void main(String[] args) {
 //		insertUserTest("Anna" ,"4321");
 //		insertUserTestUseSingleton("Singleton" ,"34566");
 //		insertUserTestUseSingleton_3("changUanme", "223344");
-		selectUserTestUse_3("mike", "1234");
+//		selectUserTestUse_3("mike", "1234");
+		hibernateIncrement_4();
 	}
 
 	/**
@@ -57,7 +61,7 @@ public class T01_FirstHibernateTest {
 			session = factory.openSession();
 			tra = session.beginTransaction();// 開啟事務管理
 			T01_User user = new T01_User(0, username, password, null, 0);
-			Logger.getLogger(T01_FirstHibernateTest.class).debug(user.toString());
+//			Logger.getLogger(T01_FirstHibernateTest.class).debug(user.toString());
 			session.save(user);
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -83,7 +87,7 @@ public class T01_FirstHibernateTest {
 			session = factory.openSession();
 			tra = session.beginTransaction();// 開啟事務管理
 			T01_User user = new T01_User(0, "testUsername", "testPassword", null, 0);// 對象為游離態
-			Logger.getLogger(T01_FirstHibernateTest.class).debug(user.toString());
+//			Logger.getLogger(T01_FirstHibernateTest.class).debug(user.toString());
 			session.save(user);// 對象與session關連，為持久態，在持久態所做出的變更hibernate同步至數據庫
 			user.setUsername(username);
 			user.setPassword(password);
@@ -102,13 +106,13 @@ public class T01_FirstHibernateTest {
 	}
 
 	/**
-	 * 用用戶編園查詢用戶
+	 * class 3，用用戶編園查詢用戶
 	 * 
 	 * @param username
 	 * @param password
 	 * @return
 	 */
-	private static int selectUserTestUse_3(String username, String password) {
+	private static T01_User selectUserTestUse_3(String username, String password) {
 		Session session = null;
 		Transaction tra = null;
 		String method = "get";
@@ -135,11 +139,37 @@ public class T01_FirstHibernateTest {
 			ex.printStackTrace();
 			tra.rollback();
 		} finally {
+//			Logger logger = Logger.getLogger(T01_FirstHibernateTest.class);
+//			logger.debug("debug message");//一般在方法內容使用
 			tra.commit();
 //			tra.rollback();
 			session.close();
 		}
-		return 0;
+		return user;
+	}
+
+	/**
+	 * class 4，聯合主鍵測試個案
+	 */
+	private static void hibernateIncrement_4() {
+		SessionFactory factory = T02_SessionFactorySingleton.getSessionFactory();
+		Session session = factory.openSession();
+		Transaction tra = session.beginTransaction();
+		try{
+			T04_Student student = new T04_Student();
+			T04_StudentId studentId = new T04_StudentId();
+			studentId.setFirstname("sony");
+			studentId.setLastname("asus");
+			student.setColumnKey(studentId);
+			student.setMajor("android");
+			session.save(student);
+			tra.commit();
+		}catch(Exception e) {
+			tra.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
 	}
 
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- 
+	映射內容包含：
+		表(字段)和類(屬性)的映射
+		主鍵的映射
+		普通字段映射
+ -->
+<hibernate-mapping package="com.mickey.pojo"><!-- 表和類的映射 -->
+	<class name="T04_Student" table="hibernate_t04_student" lazy="true">
+		<!-- 
+		<id name="id" column="id" type="int">
+			Oracle使用Sequence方式
+			MySQL和SqlServer使用identity(自增主鍵生成機制)
+			native，就是將主鍵生成功做交由數據庫處理
+			assigned，在插入數據的時候主鍵由用戶自己添加
+			uuid，采用128位的uuid算法生成主键，uuid被编码为一个32位16进制数字的字符串。占用空间大（字符串类型）
+			<generator class="native"></generator>
+		</id>
+		 -->
+		 <!-- 主鍵映射 -->
+		 <!-- 複合主鍵：多個字段作為聯合主鍵 -->
+		<composite-id name="columnKey" class="T04_StudentId">
+			<!-- 會作為新的臨時類的屬性 -->
+			<key-property name="firstname" type="string"></key-property>
+			<key-property name="lastname" type="string"></key-property>
+		</composite-id>
+		<!-- 普通字段映射 -->
+		<property name="major" column="major" type="string"></property>
+		
+		
+	</class>
+</hibernate-mapping>
+                                   

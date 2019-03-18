@@ -86,4 +86,4 @@ from springmvc_t15_user as u /*用戶表*/
 	left join t10_menu as m
 		on am.mid = m.id
 where u.id = 11;
-select * from t10_menu;
+select * from springmvc_t15_user;
