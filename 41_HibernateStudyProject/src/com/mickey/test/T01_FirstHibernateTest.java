@@ -11,6 +11,8 @@ import com.mickey.pojo.T04_Address;
 import com.mickey.pojo.T04_Person;
 import com.mickey.pojo.T04_Student;
 import com.mickey.pojo.T04_StudentId;
+import com.mickey.pojo.T05_Department;
+import com.mickey.pojo.T05_Employee;
 
 public class T01_FirstHibernateTest {
 	public static void main(String[] args) {
@@ -19,7 +21,8 @@ public class T01_FirstHibernateTest {
 //		insertUserTestUseSingleton_3("changUanme", "223344");
 //		selectUserTestUse_3("mike", "1234");
 //		hibernateIncrement_4();
-		objectRelationalMapping_4();
+//		objectRelationalMapping_4();
+		manyToOne_5();
 	}
 
 	/**
@@ -174,13 +177,9 @@ public class T01_FirstHibernateTest {
 	}
 
 	/*
-	 * 組合關系映射，此方法用得不多，比蠅多會用join來做 缺點：很多冗餘數據
-	 * 大對象映射：
-	 * https://blog.csdn.net/yiguang_820/article/details/79088524
-	 * Clob，文本大對象，最長4g
-	 * 	private Clob article;
-	 * Blob，二進制數據大對象，最長4g
-	 * 	private Blob picture;
+	 * 組合關系映射，此方法用得不多，比蠅多會用join來做 缺點：很多冗餘數據 大對象映射：
+	 * https://blog.csdn.net/yiguang_820/article/details/79088524 Clob，文本大對象，最長4g
+	 * private Clob article; Blob，二進制數據大對象，最長4g private Blob picture;
 	 */
 	private static void objectRelationalMapping_4() {
 		SessionFactory factory = T02_SessionFactorySingleton.getSessionFactory();
@@ -203,7 +202,32 @@ public class T01_FirstHibernateTest {
 		} finally {
 			session.close();
 		}
+	}
 
+	/*
+	 * 關系映射
+	 *  一對一/多對一：hibernate一般使用Set，並加上泛型，如：Set<Employee>
+	 */
+	private static void manyToOne_5() {
+		SessionFactory factory = T02_SessionFactorySingleton.getSessionFactory();
+		Session session = factory.openSession();
+		Transaction tra = session.beginTransaction();
+		try {
+			T05_Employee employee = new T05_Employee();
+			T05_Department department = new T05_Department();
+			department.setDname("progremer");
+			department.setLocation("NewYork");
+			employee.setEname("Lyn");
+			employee.setDepartment(department);
+			System.out.println(employee.toString());
+			session.save(employee);
+			tra.commit();
+		} catch (Exception e){
+			e.getStackTrace();
+			tra.rollback();
+		}finally {
+			session.close();
+		}
 	}
 
 }

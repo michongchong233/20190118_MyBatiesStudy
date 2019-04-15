@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.mickey.pojo">
+	<!-- class 5: test one-to-many reference table -->
+	<class name="T05_Department" table="hibernate_t05_department" lazy="true">
+		<id name="did" column="did" type="int">
+			<generator class="native" />
+		</id>
+		<property name="dname" type="string" column="dname"></property>
+		<property name="location" type="string" column="location"></property>
+		<set name="employees" table="hibernate_t05_employees" cascade="all">
+			<key column="did"></key>
+			<one-to-many class="T05_Department"/>
+		</set>
+	</class>
+</hibernate-mapping>

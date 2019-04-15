@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.mickey.pojo">
+	<!-- class 5: test one-to-many reference table -->
+	<class name="T05_Employee" table="hibernate_t05_employee" lazy="true">
+		<id name="eid" column="eid" type="int">
+			<generator class="native" />
+		</id>
+		<property name="ename" type="string">
+			<column name="ename" length="100"></column>
+		</property>
+		<many-to-one name="department" class="T05_Department" column="did" cascade="save-update" />
+	</class>
+</hibernate-mapping>

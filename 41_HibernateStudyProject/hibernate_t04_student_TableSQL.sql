@@ -11,7 +11,7 @@ insert into hibernate_t04_studentid values
 ('mickey', 'anna'), 
 ('mike', 'jack');
 
-select * from hibernate_t04_studentid;
+select * from hibernate_t04_student;
 
 create table hibernate_t04_stdent(
 	column_key varchar(100),
