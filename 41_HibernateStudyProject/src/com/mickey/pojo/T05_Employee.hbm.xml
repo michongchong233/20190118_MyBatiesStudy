@@ -10,6 +10,17 @@
 		<property name="ename" type="string">
 			<column name="ename" length="100"></column>
 		</property>
-		<many-to-one name="department" class="T05_Department" column="did" cascade="save-update" />
+		<!-- 外鍵 -->
+		<many-to-one name="department" class="T05_Department" column="did" cascade="all" />
+		<!-- 
+			cascade屬性，級聯操作，操作一個對象時將對該對象相關屬性對象做同樣的操作；刪除不建議使用(怕會有誤刪操作)
+				none：默認(常用)，不級聯
+				save-update：(常用)新增和更新時級聯
+				all：進行任何操作時級聯
+				delete：刪除操作時級聯
+				all-delete-orphan：當被關聯對象失去宿主時，將其級聯刪除
+			
+			inverse屬性
+		 -->
 	</class>
 </hibernate-mapping>

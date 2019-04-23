@@ -11,7 +11,7 @@
 		<property name="location" type="string" column="location"></property>
 		<set name="employees" table="hibernate_t05_employees" cascade="all">
 			<key column="did"></key>
-			<one-to-many class="T05_Department"/>
+			<one-to-many class="T05_Employee"/>
 		</set>
 	</class>
 </hibernate-mapping>

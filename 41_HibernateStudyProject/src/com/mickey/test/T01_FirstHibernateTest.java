@@ -22,7 +22,8 @@ public class T01_FirstHibernateTest {
 //		selectUserTestUse_3("mike", "1234");
 //		hibernateIncrement_4();
 //		objectRelationalMapping_4();
-		manyToOne_5();
+//		manyToOne_5();
+		selectDepartmentByEid(1);
 	}
 
 	/**
@@ -127,7 +128,7 @@ public class T01_FirstHibernateTest {
 			tra = session.beginTransaction();// 開啟事務管理
 			switch (method) {
 			case "load":
-				// 使用load方法會使用懶加找
+				// 使用load方法會使用懶加載找
 				// 懶加載：當調用load方法時，會先回傳一個pojo的代理對象，不會先生成sql至數據庫查詢，等到要用到的時候(getter)才會到數據庫查
 				// 優點：節省資源
 				user = session.load(T01_User.class, 11);// 用主鍵來查詢
@@ -207,6 +208,8 @@ public class T01_FirstHibernateTest {
 	/*
 	 * 關系映射
 	 *  一對一/多對一：hibernate一般使用Set，並加上泛型，如：Set<Employee>
+	 *  一般都會做雙向關聯，方便資料查找，便於寫邏輯代碼
+	 *  因為當獲取這個部門所有員工時，hibernate會先給一個代理 對象，等要要用的時候才會去查詢(懶加載)，所以使用雙向關聯不用擔心效率問題
 	 */
 	private static void manyToOne_5() {
 		SessionFactory factory = T02_SessionFactorySingleton.getSessionFactory();
@@ -228,6 +231,27 @@ public class T01_FirstHibernateTest {
 		}finally {
 			session.close();
 		}
+	}
+	
+	/*
+	 * 通過eid獲取department對象，並以聯級的操作刪除此部門及此部門中的員工
+	 * 如果有設定好聯級，hibernate會先將子屬性刪除後才會將父屬性刪除
+	 */
+	private static void selectDepartmentByEid(int did) {
+		SessionFactory factory = T02_SessionFactorySingleton.getSessionFactory();
+		Session session = factory.openSession();
+		Transaction tra = session.beginTransaction();
+		try {
+			T05_Department department = session.get(T05_Department.class, did);
+			System.out.println("department: " + department.getEmployees());
+			session.delete(department);
+			tra.commit();
+		}catch(Exception e) {
+			tra.rollback();
+		}finally {
+			session.close();
+		}
+		
 	}
 
 }

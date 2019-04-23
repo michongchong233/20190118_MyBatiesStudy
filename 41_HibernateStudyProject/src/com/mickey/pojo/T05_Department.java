@@ -6,6 +6,8 @@ public class T05_Department {
 	private int did;
 	private String dname;
 	private String location;
+	
+	//在這個部門中的雇員(雙向關聯用)
 	private Set<T05_Employee> employees;
 
 	public int getDid() {
@@ -42,7 +44,7 @@ public class T05_Department {
 
 	@Override
 	public String toString() {
-		return "T05_Department [did=" + did + ", dname=" + dname + ", location=" + location + ", employees=" + employees
+		return "T05_Department [did=" + did + ", dname=" + dname + ", location=" + location
 				+ "]";
 	}
 

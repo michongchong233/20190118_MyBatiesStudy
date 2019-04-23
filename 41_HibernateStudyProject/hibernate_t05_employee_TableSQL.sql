@@ -11,7 +11,11 @@ insert into hibernate_t05_employee values
 (default, 'cola', 1)
 ;
 
+select * from hibernate_t05_department;
 select * from hibernate_t05_employee;
+
+drop table hibernate_t05_department;
+drop table hibernate_t05_employee;
 
 create table hibernate_t05_department(
 	did int(5) primary key auto_increment,
