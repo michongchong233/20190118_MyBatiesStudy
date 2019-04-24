@@ -1,5 +1,6 @@
 package com.mickey.pojo;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class T05_Department {
@@ -10,6 +11,10 @@ public class T05_Department {
 	//在這個部門中的雇員(雙向關聯用)
 	private Set<T05_Employee> employees;
 
+	public void addEmployee(T05_Employee employee) {
+		employees.add(employee);
+	}
+	
 	public int getDid() {
 		return did;
 	}
@@ -47,5 +52,19 @@ public class T05_Department {
 		return "T05_Department [did=" + did + ", dname=" + dname + ", location=" + location
 				+ "]";
 	}
+
+	public T05_Department(int did, String dname, String location, Set<T05_Employee> employees) {
+		super();
+		this.did = did;
+		this.dname = dname;
+		this.location = location;
+		this.employees = employees;
+	}
+
+	public T05_Department() {
+		super();
+		this.employees = new HashSet<T05_Employee>();
+	}
+	
 
 }

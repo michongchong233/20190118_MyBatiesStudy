@@ -11,6 +11,8 @@ import com.mickey.pojo.T04_Address;
 import com.mickey.pojo.T04_Person;
 import com.mickey.pojo.T04_Student;
 import com.mickey.pojo.T04_StudentId;
+import com.mickey.pojo.T05_Address;
+import com.mickey.pojo.T05_Company;
 import com.mickey.pojo.T05_Department;
 import com.mickey.pojo.T05_Employee;
 
@@ -22,8 +24,11 @@ public class T01_FirstHibernateTest {
 //		selectUserTestUse_3("mike", "1234");
 //		hibernateIncrement_4();
 //		objectRelationalMapping_4();
-//		manyToOne_5();
-		selectDepartmentByEid(1);
+//		manyToOneInsert_5();
+//		manyToOneInsert_5_1();
+//		selectDepartmentByEid_5(1);
+//		tryInverse_5();
+		oneToOne_5();
 	}
 
 	/**
@@ -207,23 +212,30 @@ public class T01_FirstHibernateTest {
 
 	/*
 	 * 關系映射
+	 * 新增用戶(由多方維護外鍵的值)
 	 *  一對一/多對一：hibernate一般使用Set，並加上泛型，如：Set<Employee>
 	 *  一般都會做雙向關聯，方便資料查找，便於寫邏輯代碼
 	 *  因為當獲取這個部門所有員工時，hibernate會先給一個代理 對象，等要要用的時候才會去查詢(懶加載)，所以使用雙向關聯不用擔心效率問題
 	 */
-	private static void manyToOne_5() {
+	private static void manyToOneInsert_5() {
 		SessionFactory factory = T02_SessionFactorySingleton.getSessionFactory();
 		Session session = factory.openSession();
 		Transaction tra = session.beginTransaction();
+		//由多方維護
+		T05_Employee employee1 = new T05_Employee();
+		T05_Employee employee2 = new T05_Employee();
+		T05_Department department = new T05_Department();
+		department.setDname("progremer");
+		department.setLocation("NewYork");
+		employee1.setEname("Lyn");
+		employee1.setDepartment(department);
+		employee2.setEname("Li");
+		employee2.setDepartment(department);
+		System.out.println(employee1.toString());
+		System.out.println(employee2.toString());
 		try {
-			T05_Employee employee = new T05_Employee();
-			T05_Department department = new T05_Department();
-			department.setDname("progremer");
-			department.setLocation("NewYork");
-			employee.setEname("Lyn");
-			employee.setDepartment(department);
-			System.out.println(employee.toString());
-			session.save(employee);
+			session.save(employee1);
+			session.save(employee2);
 			tra.commit();
 		} catch (Exception e){
 			e.getStackTrace();
@@ -234,10 +246,41 @@ public class T01_FirstHibernateTest {
 	}
 	
 	/*
+	 * 關系映射
+	 * 新增用戶(由單方維護外鍵的值)
+	 */
+	private static void manyToOneInsert_5_1() {
+		SessionFactory factory = T02_SessionFactorySingleton.getSessionFactory();
+		Session session = factory.openSession();
+		Transaction tra = session.beginTransaction();
+		T05_Department department = new T05_Department();
+		T05_Employee employee1 = new T05_Employee();
+		T05_Employee employee2 = new T05_Employee();
+		employee1.setEname("Ruby");
+		employee1.setDepartment(department);
+		employee2.setEname("Yang");
+		employee2.setDepartment(department);
+		department.setDname("marketing");
+		department.setLocation("Taipei");
+		department.addEmployee(employee1);
+		department.addEmployee(employee2);
+		try {
+			session.save(department);//由一方淮護關聯關系
+			tra.commit();
+		}catch(Exception e) {
+			tra.rollback();
+		}finally {
+			session.close();
+		}
+	}
+	
+	/*
+	 * 由一方來維護外鍵的值
+	 *inverse="false"
 	 * 通過eid獲取department對象，並以聯級的操作刪除此部門及此部門中的員工
 	 * 如果有設定好聯級，hibernate會先將子屬性刪除後才會將父屬性刪除
 	 */
-	private static void selectDepartmentByEid(int did) {
+	private static void selectDepartmentByEid_5(int did) {
 		SessionFactory factory = T02_SessionFactorySingleton.getSessionFactory();
 		Session session = factory.openSession();
 		Transaction tra = session.beginTransaction();
@@ -251,7 +294,30 @@ public class T01_FirstHibernateTest {
 		}finally {
 			session.close();
 		}
-		
+	}
+	
+	/*
+	 * 一對一(外鍵關聯方式)
+	 */
+	private static void oneToOne_5() {
+		SessionFactory factory = T02_SessionFactorySingleton.getSessionFactory();
+		Session session = factory.openSession();
+		Transaction tra = session.beginTransaction();
+		try {
+			T05_Address address = new T05_Address();
+			T05_Company company = new T05_Company();
+			address.setCountry("Japen");
+			address.setCity("Tokiyo");
+			address.setStreet("dontKnow");
+			company.setCname("Sony");
+			company.setAddress(address);
+			session.save(company);
+			tra.commit();
+		}catch(Exception e) {
+			tra.rollback();
+		}finally {
+			session.close();
+		}
 	}
 
 }

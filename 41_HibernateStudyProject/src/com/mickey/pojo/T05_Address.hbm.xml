@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.mickey.pojo">
+	<class name="T05_Address" table="hibernate_t05_address">
+		<id name="aid" column="aid" type="int">
+			<generator class="native"></generator>
+		</id>
+		<property name="country" column="country" type="string"></property>
+		<property name="city" column="city" type="string"></property>
+		<property name="street" column="street" type="string"></property>
+		<one-to-one name="company" class="T05_Company" property-ref="cid" cascade="all"></one-to-one>
+	</class>
+</hibernate-mapping>

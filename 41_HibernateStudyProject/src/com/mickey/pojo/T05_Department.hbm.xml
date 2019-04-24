@@ -9,7 +9,7 @@
 		</id>
 		<property name="dname" type="string" column="dname"></property>
 		<property name="location" type="string" column="location"></property>
-		<set name="employees" table="hibernate_t05_employees" cascade="all">
+		<set name="employees" table="hibernate_t05_employees" cascade="all" inverse="true">
 			<key column="did"></key>
 			<one-to-many class="T05_Employee"/>
 		</set>

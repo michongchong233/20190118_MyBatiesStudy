@@ -1,3 +1,4 @@
+/*--多對一-------------------------------------------------------*/
 create table hibernate_t05_employee(
 	eid int(5) primary key auto_increment,
     ename varchar(100),
@@ -28,3 +29,21 @@ insert into hibernate_t05_department values
 (default, 'accounting', 'ShangHai');
 
 select * from hibernate_t05_department;
+
+/*--一對一-------------------------------------------------------*/
+create table hibernate_t05_company(
+	cid int(3) primary key auto_increment,
+    cname varchar(100),
+    aid int(3) references hibernate_t05_address
+);
+
+create table hibernate_t05_address(
+	aid int(3) primary key auto_increment,
+    country varchar(100),
+    city varchar(100),
+    street varchar(100)
+);
+
+select * from hibernate_t05_company;
+select * from hibernate_t05_address;
+

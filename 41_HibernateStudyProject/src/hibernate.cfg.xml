@@ -18,5 +18,8 @@
 		<mapping resource="com/mickey/pojo/T04_Person.hbm.xml" />
 		<mapping resource="com/mickey/pojo/T05_Employee.hbm.xml" />
 		<mapping resource="com/mickey/pojo/T05_Department.hbm.xml" />
+		<mapping resource="com/mickey/pojo/T05_Company.hbm.xml" />
+		<mapping resource="com/mickey/pojo/T05_Address.hbm.xml" />
+		
 	</session-factory>
 </hibernate-configuration>
