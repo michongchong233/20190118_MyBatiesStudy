@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.mickey.pojo">
+	<class name="T05_Course" table="hibernate_t05_course" lazy="true">
+		<id column="cid" name="cid" type="int">
+			<generator class="native"></generator>
+		</id>
+		<property name="cname" type="string"></property>
+		<!-- 
+			set的table屬性代表連接student和course這兩張表的關系對應表，如果沒關的話hibernate會自動映射名稱
+		 -->
+		<set name="students" table="hibernate_t05_student_course" cascade="save-update">
+			<key column="cid"></key>
+			<many-to-many class="com.mickey.pojo.T05_Student" column="sid"></many-to-many>
+		</set>
+	</class>
+</hibernate-mapping>

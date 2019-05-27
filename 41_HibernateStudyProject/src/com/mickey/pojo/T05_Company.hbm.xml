@@ -7,8 +7,13 @@
 			<generator class="native"></generator>
 		</id>
 		<property name="cname" column="cname" type="string"></property>
+		<!-- 
+		此方法為外鍵一對一關聯，如果是主鍵一對一關聯的話就使用<one-to-one>標籤 
+		一般情況下，一對一的級聯屬性(cascade)為all
+		-->
 		<many-to-one name="address" class="T05_Address" cascade="all" unique="true">
 			<column name="aid"></column>
 		</many-to-one>
+		<!-- <one-to-one name="address" class="T05_Address" cascade="all"></one-to-one> -->
 	</class>
 </hibernate-mapping>

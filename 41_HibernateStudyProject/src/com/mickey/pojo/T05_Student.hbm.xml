@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.mickey.pojo">
+	<class name="T05_Student" table="hibernate_t05_student" lazy="true">
+		<id name="sid" column="sid" type="int">
+			<generator class="native"></generator>
+		</id>
+		<property name="sname" column="sname" type="string"></property>
+		<set name="courses" table="hibernate_t05_student_course" cascade="save-update">
+			<!-- 指定中间表中用来指向本表的外键  -->
+			<key column="sid"></key>
+			<!-- column含义,用来指定中间表中用来指向另一端表的外键 --> 
+			<many-to-many class="com.mickey.pojo.T05_Course" column="cid"></many-to-many>
+		</set>
+	</class>
+</hibernate-mapping>

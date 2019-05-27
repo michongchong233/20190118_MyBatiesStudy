@@ -47,3 +47,23 @@ create table hibernate_t05_address(
 select * from hibernate_t05_company;
 select * from hibernate_t05_address;
 
+/*--多對多-------------------------------------------------------*/
+create table hibernate_t05_course(
+	cid int(3) primary key auto_increment,
+    cname varchar(100)
+);
+
+create table hibernate_t05_student(
+	sid int(3) primary key auto_increment,
+    sname varchar(100)
+);
+
+create table hibernate_t05_student_course(
+	sid int(3),
+    cid int(3)
+);
+
+select * from hibernate_t05_course;
+select * from hibernate_t05_student;
+select * from hibernate_t05_student_course;
+

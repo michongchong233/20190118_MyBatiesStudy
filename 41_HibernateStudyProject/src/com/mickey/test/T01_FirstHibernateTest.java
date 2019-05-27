@@ -13,8 +13,10 @@ import com.mickey.pojo.T04_Student;
 import com.mickey.pojo.T04_StudentId;
 import com.mickey.pojo.T05_Address;
 import com.mickey.pojo.T05_Company;
+import com.mickey.pojo.T05_Course;
 import com.mickey.pojo.T05_Department;
 import com.mickey.pojo.T05_Employee;
+import com.mickey.pojo.T05_Student;
 
 public class T01_FirstHibernateTest {
 	public static void main(String[] args) {
@@ -28,7 +30,8 @@ public class T01_FirstHibernateTest {
 //		manyToOneInsert_5_1();
 //		selectDepartmentByEid_5(1);
 //		tryInverse_5();
-		oneToOne_5();
+//		oneToOne_5();
+		manyToMany_5();
 	}
 
 	/**
@@ -298,6 +301,7 @@ public class T01_FirstHibernateTest {
 	
 	/*
 	 * 一對一(外鍵關聯方式)
+	 * 如果需要使用主鍵關聯的方式需要將T05_Company.hbm.xml的<meny-to-one>改為<one-to-one>
 	 */
 	private static void oneToOne_5() {
 		SessionFactory factory = T02_SessionFactorySingleton.getSessionFactory();
@@ -318,6 +322,45 @@ public class T01_FirstHibernateTest {
 		}finally {
 			session.close();
 		}
+	}
+	
+	/*
+	 * 多對多多如：學生與課程，一個學生可以選多門課，一門課可以有多名學生
+	 * 過去的做法是建立一張關系對應表，把多對多拆分為彼此一對多
+	 */
+	private static void manyToMany_5() {
+		SessionFactory factory = T02_SessionFactorySingleton.getSessionFactory();
+		Session session = factory.openSession();
+		Transaction tra = session.beginTransaction();
+		T05_Course course_01 = new T05_Course();
+		course_01.setCname("語文");
+		T05_Course course_02 = new T05_Course();
+		course_02.setCname("英語");
+		T05_Course course_03 = new T05_Course();
+		course_03.setCname("數學");
+		
+		T05_Student student_01 = new T05_Student();
+		student_01.setSname("Mickey");
+		T05_Student student_02 = new T05_Student();
+		student_02.setSname("Mike");
+		T05_Student student_03 = new T05_Student();
+		student_03.setSname("Android");
+		
+		//選課
+		student_01.addCource(course_01);
+		student_01.addCource(course_02);
+		student_01.addCource(course_03);
+		
+		student_02.addCource(course_01);
+		student_02.addCource(course_02);
+		
+		student_03.addCource(course_01);
+		
+		session.save(student_01);
+		session.save(student_02);
+		session.save(student_03);
+		tra.commit();
+		
 	}
 
 }

@@ -20,6 +20,8 @@
 		<mapping resource="com/mickey/pojo/T05_Department.hbm.xml" />
 		<mapping resource="com/mickey/pojo/T05_Company.hbm.xml" />
 		<mapping resource="com/mickey/pojo/T05_Address.hbm.xml" />
+		<mapping resource="com/mickey/pojo/T05_Course.hbm.xml" />
+		<mapping resource="com/mickey/pojo/T05_Student.hbm.xml" />
 		
 	</session-factory>
 </hibernate-configuration>
