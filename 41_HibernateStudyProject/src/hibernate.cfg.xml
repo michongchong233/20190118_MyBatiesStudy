@@ -23,5 +23,6 @@
 		<mapping resource="com/mickey/pojo/T05_Course.hbm.xml" />
 		<mapping resource="com/mickey/pojo/T05_Student.hbm.xml" />
 		
+		<mapping class="com.mickey.pojo.T06_User"/>
 	</session-factory>
 </hibernate-configuration>

@@ -1,8 +1,14 @@
 package com.mickey.test;
 
+import java.time.LocalDate;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.boot.Metadata;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 import com.mickey.pojo.T01_User;
@@ -17,6 +23,7 @@ import com.mickey.pojo.T05_Course;
 import com.mickey.pojo.T05_Department;
 import com.mickey.pojo.T05_Employee;
 import com.mickey.pojo.T05_Student;
+import com.mickey.pojo.T06_User;
 
 public class T01_FirstHibernateTest {
 	public static void main(String[] args) {
@@ -31,7 +38,8 @@ public class T01_FirstHibernateTest {
 //		selectDepartmentByEid_5(1);
 //		tryInverse_5();
 //		oneToOne_5();
-		manyToMany_5();
+//		manyToMany_5();
+		hibernateAnnotation_6();
 	}
 
 	/**
@@ -361,6 +369,30 @@ public class T01_FirstHibernateTest {
 		session.save(student_03);
 		tra.commit();
 		
+	}
+	
+	/*
+	 * hibernate注解的使用
+	 */
+	private static void hibernateAnnotation_6() {
+		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
+		Session session = factory.openSession();
+		Transaction tra = session.beginTransaction();
+		try {
+			T06_User user_01 = new T06_User();
+			user_01.setUname("Yang");
+			user_01.setUage(18);
+			user_01.setUbirth(LocalDate.now());
+			session.save(user_01);
+			tra.commit();
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+//		System.out.println(session.get(T06_User.class, 1).toString());
 	}
 
 }
