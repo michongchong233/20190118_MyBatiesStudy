@@ -1,6 +1,7 @@
 package com.mickey.pojo;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,25 +10,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
 
-@Entity//將一個類聲明成一個實體Bean
-@Table(name="hibernate_t06_user")//指定表名
+@Entity // 將一個類聲明成一個實體Bean
+@Table(name = "hibernate_t06_user") // 指定表名
 public class T06_User {
-	@Id//表示主鍵
-	@Column(name="uid")//指定字段
-	@GeneratedValue(strategy = GenerationType.IDENTITY)//聲明主鍵生成策略
+	@Id // 表示主鍵
+	@Column(name = "uid") // 指定字段
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // 聲明主鍵生成策略
 	private int uid;
-	
-	@Column(name="uname")
+
+	@Column(name = "uname")
 	private String uname;
-	
-	@Column(name="uage")
+
+	@Column(name = "uage")
 	private int uage;
-	
-	@Column(name="ubirth")
+
+	@Column(name = "ubirth")
 	private LocalDate ubirth;
-	//@Transient --> 表示在表裡面不會有相關的字段
-	//@Fomula("(select count(*) from hibernate_t06_user)") --> 用一個查詢語句動態的生成一個類的屬性
+	// @Transient --> 表示在表裡面不會有相關的字段
+	// @Formula("(select count(*) from hibernate_t06_user)") //--> 用一個查詢語句動態的生成一個類的屬性
 
 	public int getUid() {
 		return uid;

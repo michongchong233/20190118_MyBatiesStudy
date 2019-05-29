@@ -5,10 +5,6 @@ import java.time.LocalDate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 import com.mickey.pojo.T01_User;
@@ -23,6 +19,10 @@ import com.mickey.pojo.T05_Course;
 import com.mickey.pojo.T05_Department;
 import com.mickey.pojo.T05_Employee;
 import com.mickey.pojo.T05_Student;
+import com.mickey.pojo.T06_Address;
+import com.mickey.pojo.T06_Company;
+import com.mickey.pojo.T06_Department;
+import com.mickey.pojo.T06_Employee;
 import com.mickey.pojo.T06_User;
 
 public class T01_FirstHibernateTest {
@@ -39,7 +39,10 @@ public class T01_FirstHibernateTest {
 //		tryInverse_5();
 //		oneToOne_5();
 //		manyToMany_5();
-		hibernateAnnotation_6();
+//		hibernateAnnotation_6();
+//		annotationOneToOne_6();
+//		annotationOneToMany_6();
+		annotationManyToMany_6();
 	}
 
 	/**
@@ -222,17 +225,15 @@ public class T01_FirstHibernateTest {
 	}
 
 	/*
-	 * 關系映射
-	 * 新增用戶(由多方維護外鍵的值)
-	 *  一對一/多對一：hibernate一般使用Set，並加上泛型，如：Set<Employee>
-	 *  一般都會做雙向關聯，方便資料查找，便於寫邏輯代碼
-	 *  因為當獲取這個部門所有員工時，hibernate會先給一個代理 對象，等要要用的時候才會去查詢(懶加載)，所以使用雙向關聯不用擔心效率問題
+	 * 關系映射 新增用戶(由多方維護外鍵的值) 一對一/多對一：hibernate一般使用Set，並加上泛型，如：Set<Employee>
+	 * 一般都會做雙向關聯，方便資料查找，便於寫邏輯代碼 因為當獲取這個部門所有員工時，hibernate會先給一個代理
+	 * 對象，等要要用的時候才會去查詢(懶加載)，所以使用雙向關聯不用擔心效率問題
 	 */
 	private static void manyToOneInsert_5() {
 		SessionFactory factory = T02_SessionFactorySingleton.getSessionFactory();
 		Session session = factory.openSession();
 		Transaction tra = session.beginTransaction();
-		//由多方維護
+		// 由多方維護
 		T05_Employee employee1 = new T05_Employee();
 		T05_Employee employee2 = new T05_Employee();
 		T05_Department department = new T05_Department();
@@ -248,17 +249,16 @@ public class T01_FirstHibernateTest {
 			session.save(employee1);
 			session.save(employee2);
 			tra.commit();
-		} catch (Exception e){
+		} catch (Exception e) {
 			e.getStackTrace();
 			tra.rollback();
-		}finally {
+		} finally {
 			session.close();
 		}
 	}
-	
+
 	/*
-	 * 關系映射
-	 * 新增用戶(由單方維護外鍵的值)
+	 * 關系映射 新增用戶(由單方維護外鍵的值)
 	 */
 	private static void manyToOneInsert_5_1() {
 		SessionFactory factory = T02_SessionFactorySingleton.getSessionFactory();
@@ -276,19 +276,17 @@ public class T01_FirstHibernateTest {
 		department.addEmployee(employee1);
 		department.addEmployee(employee2);
 		try {
-			session.save(department);//由一方淮護關聯關系
+			session.save(department);// 由一方淮護關聯關系
 			tra.commit();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			tra.rollback();
-		}finally {
+		} finally {
 			session.close();
 		}
 	}
-	
+
 	/*
-	 * 由一方來維護外鍵的值
-	 *inverse="false"
-	 * 通過eid獲取department對象，並以聯級的操作刪除此部門及此部門中的員工
+	 * 由一方來維護外鍵的值 inverse="false" 通過eid獲取department對象，並以聯級的操作刪除此部門及此部門中的員工
 	 * 如果有設定好聯級，hibernate會先將子屬性刪除後才會將父屬性刪除
 	 */
 	private static void selectDepartmentByEid_5(int did) {
@@ -300,16 +298,15 @@ public class T01_FirstHibernateTest {
 			System.out.println("department: " + department.getEmployees());
 			session.delete(department);
 			tra.commit();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			tra.rollback();
-		}finally {
+		} finally {
 			session.close();
 		}
 	}
-	
+
 	/*
-	 * 一對一(外鍵關聯方式)
-	 * 如果需要使用主鍵關聯的方式需要將T05_Company.hbm.xml的<meny-to-one>改為<one-to-one>
+	 * 一對一(外鍵關聯方式) 如果需要使用主鍵關聯的方式需要將T05_Company.hbm.xml的<meny-to-one>改為<one-to-one>
 	 */
 	private static void oneToOne_5() {
 		SessionFactory factory = T02_SessionFactorySingleton.getSessionFactory();
@@ -325,16 +322,15 @@ public class T01_FirstHibernateTest {
 			company.setAddress(address);
 			session.save(company);
 			tra.commit();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			tra.rollback();
-		}finally {
+		} finally {
 			session.close();
 		}
 	}
-	
+
 	/*
-	 * 多對多多如：學生與課程，一個學生可以選多門課，一門課可以有多名學生
-	 * 過去的做法是建立一張關系對應表，把多對多拆分為彼此一對多
+	 * 多對多多如：學生與課程，一個學生可以選多門課，一門課可以有多名學生 過去的做法是建立一張關系對應表，把多對多拆分為彼此一對多
 	 */
 	private static void manyToMany_5() {
 		SessionFactory factory = T02_SessionFactorySingleton.getSessionFactory();
@@ -346,31 +342,31 @@ public class T01_FirstHibernateTest {
 		course_02.setCname("英語");
 		T05_Course course_03 = new T05_Course();
 		course_03.setCname("數學");
-		
+
 		T05_Student student_01 = new T05_Student();
 		student_01.setSname("Mickey");
 		T05_Student student_02 = new T05_Student();
 		student_02.setSname("Mike");
 		T05_Student student_03 = new T05_Student();
 		student_03.setSname("Android");
-		
-		//選課
+
+		// 選課
 		student_01.addCource(course_01);
 		student_01.addCource(course_02);
 		student_01.addCource(course_03);
-		
+
 		student_02.addCource(course_01);
 		student_02.addCource(course_02);
-		
+
 		student_03.addCource(course_01);
-		
+
 		session.save(student_01);
 		session.save(student_02);
 		session.save(student_03);
 		tra.commit();
-		
+
 	}
-	
+
 	/*
 	 * hibernate注解的使用
 	 */
@@ -385,14 +381,94 @@ public class T01_FirstHibernateTest {
 			user_01.setUbirth(LocalDate.now());
 			session.save(user_01);
 			tra.commit();
-		}catch(Exception ex){
+		} catch (Exception ex) {
 			ex.printStackTrace();
-		}finally {
-			if(session != null) {
+		} finally {
+			if (session != null) {
 				session.close();
 			}
 		}
 //		System.out.println(session.get(T06_User.class, 1).toString());
+	}
+
+	private static void annotationOneToOne_6() {
+		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
+		Session session = factory.openSession();
+		Transaction tra = session.beginTransaction();
+		try {
+			T06_Address address = new T06_Address();
+			T06_Company company = new T06_Company();
+			address.setCountry("China");
+			address.setCity("Beijing");
+			address.setStreet("ZhongZhenRoad");
+			company.setCname("Huawei");
+			company.setAddress(address);
+			session.save(company);
+			tra.commit();
+		} catch (Exception e) {
+			tra.rollback();
+		} finally {
+			session.close();
+		}
+	}
+
+	private static void annotationOneToMany_6() {
+		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
+		Session session = factory.openSession();
+		Transaction tra = session.beginTransaction();
+		T06_Department department = new T06_Department();
+		T06_Employee employee1 = new T06_Employee();
+		T06_Employee employee2 = new T06_Employee();
+		employee1.setEname("Weiss");
+		employee2.setEname("Black");
+		employee1.setDepartment(department);
+		employee2.setDepartment(department);
+		department.setDname("Progemer");
+		department.setLocation("USA");
+		department.addEmployee(employee1);
+		department.addEmployee(employee2);
+		try {
+			session.save(department);
+			tra.commit();
+		} catch (Exception e) {
+			tra.rollback();
+		} finally {
+			session.close();
+		}
+	}
+	
+	private static void annotationManyToMany_6() {
+		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
+		Session session = factory.openSession();
+		Transaction tra = session.beginTransaction();
+		T05_Course course_01 = new T05_Course();
+		course_01.setCname("物理");
+		T05_Course course_02 = new T05_Course();
+		course_02.setCname("化學");
+		T05_Course course_03 = new T05_Course();
+		course_03.setCname("生物");
+
+		T05_Student student_01 = new T05_Student();
+		student_01.setSname("Ruby");
+		T05_Student student_02 = new T05_Student();
+		student_02.setSname("Weiss");
+		T05_Student student_03 = new T05_Student();
+		student_03.setSname("Black");
+
+		// 選課
+		student_01.addCource(course_01);
+		student_01.addCource(course_02);
+		student_01.addCource(course_03);
+
+		student_02.addCource(course_01);
+		student_02.addCource(course_02);
+
+		student_03.addCource(course_01);
+
+		session.save(student_01);
+		session.save(student_02);
+		session.save(student_03);
+		tra.commit();
 	}
 
 }

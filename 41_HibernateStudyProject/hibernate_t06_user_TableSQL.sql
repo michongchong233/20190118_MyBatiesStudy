@@ -6,3 +6,4 @@ create table hibernate_t06_user(
 );
 
 select * from hibernate_t06_user;
+select count(*) from hibernate_t06_user;
