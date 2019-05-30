@@ -1,11 +1,13 @@
 package com.mickey.test;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 import com.mickey.pojo.T01_User;
 import com.mickey.pojo.T02_SessionFactorySingleton;
@@ -44,7 +46,8 @@ public class T01_FirstHibernateTest {
 //		hibernateAnnotation_6();
 //		annotationOneToOne_6();
 //		annotationOneToMany_6();
-		annotationManyToMany_6();
+//		annotationManyToMany_6();
+		tryHql_7();
 	}
 
 	/**
@@ -471,6 +474,25 @@ public class T01_FirstHibernateTest {
 		session.save(student_02);
 		session.save(student_03);
 		tra.commit();
+	}
+	
+	private static void tryHql_7() {
+		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
+		Session session = factory.openSession();
+		Transaction tra = session.beginTransaction();
+		String hql = "from T06_Employee";
+		Query query = session.createQuery(hql);
+		List list = query.list();
+		list.forEach(l -> {
+			System.out.println(l.toString());
+		});
+		try {
+			tra.commit();
+		} catch (Exception e) {
+			tra.rollback();
+		} finally {
+			session.close();
+		}
 	}
 
 }
