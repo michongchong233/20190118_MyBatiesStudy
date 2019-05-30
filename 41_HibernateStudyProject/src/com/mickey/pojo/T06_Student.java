@@ -22,6 +22,10 @@ public class T06_Student {
 	@ManyToMany(cascade = CascadeType.ALL) 
 	private Set<T06_Course> courses;
 
+	public void addCource(T06_Course course) {
+		courses.add(course);
+	}
+
 	public int getSid() {
 		return sid;
 	}
