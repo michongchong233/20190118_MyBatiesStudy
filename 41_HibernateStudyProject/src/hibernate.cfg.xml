@@ -28,5 +28,7 @@
 		<mapping class="com.mickey.pojo.T06_Address"/>
 		<mapping class="com.mickey.pojo.T06_Department"/>
 		<mapping class="com.mickey.pojo.T06_Employee"/>
+		<mapping class="com.mickey.pojo.T06_Course"/>
+		<mapping class="com.mickey.pojo.T06_Student"/>
 	</session-factory>
 </hibernate-configuration>

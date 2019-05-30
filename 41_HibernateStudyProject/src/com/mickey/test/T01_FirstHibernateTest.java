@@ -21,8 +21,10 @@ import com.mickey.pojo.T05_Employee;
 import com.mickey.pojo.T05_Student;
 import com.mickey.pojo.T06_Address;
 import com.mickey.pojo.T06_Company;
+import com.mickey.pojo.T06_Course;
 import com.mickey.pojo.T06_Department;
 import com.mickey.pojo.T06_Employee;
+import com.mickey.pojo.T06_Student;
 import com.mickey.pojo.T06_User;
 
 public class T01_FirstHibernateTest {
@@ -441,18 +443,18 @@ public class T01_FirstHibernateTest {
 		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
 		Session session = factory.openSession();
 		Transaction tra = session.beginTransaction();
-		T05_Course course_01 = new T05_Course();
+		T06_Course course_01 = new T06_Course();
 		course_01.setCname("物理");
-		T05_Course course_02 = new T05_Course();
+		T06_Course course_02 = new T06_Course();
 		course_02.setCname("化學");
-		T05_Course course_03 = new T05_Course();
+		T06_Course course_03 = new T06_Course();
 		course_03.setCname("生物");
 
-		T05_Student student_01 = new T05_Student();
+		T06_Student student_01 = new T06_Student();
 		student_01.setSname("Ruby");
-		T05_Student student_02 = new T05_Student();
+		T06_Student student_02 = new T06_Student();
 		student_02.setSname("Weiss");
-		T05_Student student_03 = new T05_Student();
+		T06_Student student_03 = new T06_Student();
 		student_03.setSname("Black");
 
 		// 選課
