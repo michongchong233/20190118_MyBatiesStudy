@@ -2,7 +2,9 @@ package com.mickey.test;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -47,9 +49,17 @@ public class T01_FirstHibernateTest {
 //		annotationOneToOne_6();
 //		annotationOneToMany_6();
 //		annotationManyToMany_6();
-//		tryHql_7();
-//		tryHql_7_1();
-		tryHql_7_2();
+//		tryHql_7();// 查詢多對象全欄位，Bean封裝單筆資料
+//		tryHql_7_1();// 查詢單對象
+//		tryHql_7_2();// 查詢多對象部分欄位，Object[]封裝單筆資料
+//		tryHql_7_3();// 查詢多對象部分欄位，Map封裝單筆資料
+//		tryHql_7_4();// 查詢單對象部分欄位，Bean封裝單筆資料
+//		tryHql_7_5();// where查詢條件使用
+//		tryHql_7_6();// where查詢條件使用
+//		tryHql_7_7();// hql分頁查詢
+//		tryHql_7_8();// join，內連接，外連接
+//		tryHql_7_9();// SQL原生查詢
+		tryHql_7_10();// SQL原生查詢
 	}
 
 	/**
@@ -488,7 +498,7 @@ public class T01_FirstHibernateTest {
 	}
 
 	/**
-	 * hql多對象查詢
+	 * hql多對象查詢，使用Bean進行封裝
 	 */
 	private static void tryHql_7() {
 		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
@@ -500,17 +510,11 @@ public class T01_FirstHibernateTest {
 		list.forEach(l -> {
 			System.out.println(l.toString());
 		});
-		try {
-			tra.commit();
-		} catch (Exception e) {
-			tra.rollback();
-		} finally {
-			session.close();
-		}
+		session.close();
 	}
 
 	/**
-	 * hql單對象查詢，計算資料數，用Number統一處理比較方便
+	 * hql單對象查詢，計算資料數，用Number統一處理比較方便；必須確保查詢出的結果一定要有一個，不然會報異常
 	 */
 	private static void tryHql_7_1() {
 		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
@@ -520,37 +524,170 @@ public class T01_FirstHibernateTest {
 		Query query = session.createQuery(hql);
 		Number count = (Number) query.uniqueResult();
 		System.out.println("total count : " + count.intValue());
-		try {
-			tra.commit();
-		} catch (Exception e) {
-			tra.rollback();
-		} finally {
-			session.close();
-		}
+		session.close();
 	}
 
 	/**
-	 * hql多對象查詢部分欄位
-	 * 可以根據對象的屬性直接查詢值，而不用join
+	 * hql多對象查詢部分欄位，可以根據對象的屬性直接查詢值，而不用join 使用Object[]進行封裝
 	 */
 	private static void tryHql_7_2() {
 		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
 		Session session = factory.openSession();
-		Transaction tra = session.beginTransaction();
 		String hql = "select e.eid, e.ename, e.department.dname from T06_Employee e";// 選取特定欄位
 		Query query = session.createQuery(hql);
 		List<T06_Employee[]> results = query.list();
 		for (int i = 0; i < results.size(); i++) {
 			Object[] os = results.get(i);
-			System.out.println(os[0] + " " + os[1]+ " " + os[2]);
+			System.out.println(os[0] + " " + os[1] + " " + os[2]);
 		}
-		try {
-			tra.commit();
-		} catch (Exception e) {
-			tra.rollback();
-		} finally {
-			session.close();
+		session.close();
+	}
+
+	/**
+	 * hql多對象查詢部分欄位，使用Map進行封裝，一個Map為一條記錄
+	 */
+	private static void tryHql_7_3() {
+		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
+		Session session = factory.openSession();
+		String hql = "select new map("//
+				+ "e.eid as eid, e.ename as ename, e.department.dname as departmentName"// 跨表查詢
+				+ ")from T06_Employee e";// 一般建議起別名處理查出的字段
+		Query query = session.createQuery(hql);
+		List<Map> mapList = query.list();
+		mapList.forEach(map -> {
+			// 使用別名取值
+			System.out.println(map.get("eid") + " " + map.get("ename") + " " + map.get("departmentName"));
+		});
+		session.close();
+	}
+
+	/**
+	 * hql多對象查詢部分欄位，使用Bean進行封裝，需要通過構造方法
+	 */
+	private static void tryHql_7_4() {
+		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
+		Session session = factory.openSession();
+		String hql = "select new T06_Employee("//
+				+ "e.eid, e.ename"//
+				+ ") from T06_Employee e";
+		Query query = session.createQuery(hql);
+		List<T06_Employee> empList = query.list();
+		empList.forEach(emp -> {
+			System.out.println(emp.getEid() + " " + emp.getEname());
+		});
+		session.close();
+	}
+
+	/**
+	 * hql where查詢條件使用，方法一
+	 */
+	private static void tryHql_7_5() {
+		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
+		Session session = factory.openSession();
+		String hql = "select new T06_Employee("//
+				+ "e.eid, e.ename"//
+				+ ") from T06_Employee e "//
+				+ "where ename = ?";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, "mickey");// 根據條件順序設定值，索引從0計算
+		List<T06_Employee> empList = query.list();
+		empList.forEach(emp -> {
+			System.out.println(emp.getEid() + " " + emp.getEname());
+		});
+		session.close();
+	}
+
+	/**
+	 * hql where查詢條件使用，方法二(建議使用)，可動態綁定
+	 */
+	private static void tryHql_7_6() {
+		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
+		Session session = factory.openSession();
+		String hql = "select new T06_Employee("//
+				+ "e.eid, e.ename"//
+				+ ") from T06_Employee e "//
+				+ "where ename = :ename";
+		Query query = session.createQuery(hql);
+		query.setParameter("ename", "mickey");// 根據條件名稱設定值
+		List<T06_Employee> empList = query.list();
+		empList.forEach(emp -> {
+			System.out.println(emp.getEid() + " " + emp.getEname());
+		});
+		session.close();
+	}
+
+	/**
+	 * 使用hql實現分頁查詢
+	 */
+	private static void tryHql_7_7() {
+		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
+		Session session = factory.openSession();
+		String hql = "from T06_Employee";
+		Query query = session.createQuery(hql);
+		query.setFirstResult(0);// 從第幾條開始讀取資料
+		query.setMaxResults(2);// 設置每一頁最多顯示記錄的個數
+
+		List<T06_Employee> empList = query.list();
+		empList.forEach(emp -> {
+			System.out.println(emp.getEid() + " " + emp.getEname());
+		});
+		session.close();
+	}
+
+	/**
+	 * join，內連接，外連接
+	 */
+	private static void tryHql_7_8() {
+		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
+		Session session = factory.openSession();
+		String hql = "select e.eid, e.ename, dep.dname "//
+				+ "from T06_Employee e "//
+				+ "left join e.department dep";
+		Query query = session.createQuery(hql);
+		List<T06_Employee[]> results = query.list();
+		for (int i = 0; i < results.size(); i++) {
+			Object[] os = results.get(i);
+			System.out.println(os[0] + " " + os[1] + " " + os[2]);
 		}
+		session.close();
+	}
+
+	/**
+	 * SQL原生查詢(Native SQL)，和jdbc使用差別不大
+	 */
+	private static void tryHql_7_9() {
+		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
+		Session session = factory.openSession();
+		//使用原生sql，一定要使用表名查詢
+		String sql = "select eid, ename from hibernate_t05_employee where ename=:ename";
+		SQLQuery query = session.createSQLQuery(sql);
+		query.setParameter("ename", "mickey");
+		List empList = query.list();
+		for (int i = 0; i < empList.size(); i++) {
+			Object[] o = (Object[]) empList.get(i);
+			System.out.println(o[0] + " " + o[1]);
+		}
+		session.close();
+	}
+
+
+	/**
+	 * SQL原生查詢(Native SQL)，使用select * 並將查詢結果放至實體類中
+	 */
+	private static void tryHql_7_10() {
+		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
+		Session session = factory.openSession();
+		//使用原生sql，一定要使用表名查詢
+		String sql = "select * from hibernate_t05_employee where ename=:ename";
+		SQLQuery query = session.createSQLQuery(sql);
+		query.setParameter("ename", "mickey");
+		query.addEntity(T06_Employee.class);//新增實體類對象
+		List<T06_Employee> empList = query.list();
+		for (int i = 0; i < empList.size(); i++) {
+			T06_Employee emp = empList.get(i);
+			System.out.println(emp.getEid() + " " + emp.getEname());
+		}
+		session.close();
 	}
 
 }

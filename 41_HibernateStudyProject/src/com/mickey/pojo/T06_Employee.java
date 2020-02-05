@@ -21,6 +21,17 @@ public class T06_Employee {
 	@OneToOne(cascade = CascadeType.ALL) 
 	@JoinColumn(name = "did")
 	private T06_Department department;
+	
+	public T06_Employee() {
+		super();
+	}
+	
+	//使用構造方法，可以將查出的數據拉接封裝到實體對象中
+	public T06_Employee(int eid, String ename) {
+		super();
+		this.eid = eid;
+		this.ename = ename;
+	}
 
 	public int getEid() {
 		return eid;
