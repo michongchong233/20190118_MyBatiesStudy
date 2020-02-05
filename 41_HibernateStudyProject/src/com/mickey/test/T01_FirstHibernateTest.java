@@ -47,7 +47,9 @@ public class T01_FirstHibernateTest {
 //		annotationOneToOne_6();
 //		annotationOneToMany_6();
 //		annotationManyToMany_6();
-		tryHql_7();
+//		tryHql_7();
+//		tryHql_7_1();
+		tryHql_7_2();
 	}
 
 	/**
@@ -70,9 +72,9 @@ public class T01_FirstHibernateTest {
 		 * 而hibernate則會查看session是否有對象，對的話將對象放入DB
 		 */
 		session.save(user);
-//		tra.commit();//提交事務
+		tra.commit();// 提交事務
 
-		tra.rollback();
+//		tra.rollback();
 		session.close();
 	}
 
@@ -96,8 +98,8 @@ public class T01_FirstHibernateTest {
 			ex.printStackTrace();
 			tra.rollback();
 		} finally {
-//			tra.commit();
-			tra.rollback();
+			tra.commit();
+//			tra.rollback();
 			session.close();
 		}
 	}
@@ -396,6 +398,9 @@ public class T01_FirstHibernateTest {
 //		System.out.println(session.get(T06_User.class, 1).toString());
 	}
 
+	/**
+	 * 注釋使用，一對一
+	 */
 	private static void annotationOneToOne_6() {
 		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
 		Session session = factory.openSession();
@@ -417,6 +422,9 @@ public class T01_FirstHibernateTest {
 		}
 	}
 
+	/**
+	 * 注釋使用，一對多
+	 */
 	private static void annotationOneToMany_6() {
 		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
 		Session session = factory.openSession();
@@ -441,7 +449,10 @@ public class T01_FirstHibernateTest {
 			session.close();
 		}
 	}
-	
+
+	/**
+	 * 注釋使用，多對多
+	 */
 	private static void annotationManyToMany_6() {
 		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
 		Session session = factory.openSession();
@@ -475,7 +486,10 @@ public class T01_FirstHibernateTest {
 		session.save(student_03);
 		tra.commit();
 	}
-	
+
+	/**
+	 * hql多對象查詢
+	 */
 	private static void tryHql_7() {
 		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
 		Session session = factory.openSession();
@@ -486,6 +500,50 @@ public class T01_FirstHibernateTest {
 		list.forEach(l -> {
 			System.out.println(l.toString());
 		});
+		try {
+			tra.commit();
+		} catch (Exception e) {
+			tra.rollback();
+		} finally {
+			session.close();
+		}
+	}
+
+	/**
+	 * hql單對象查詢，計算資料數，用Number統一處理比較方便
+	 */
+	private static void tryHql_7_1() {
+		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
+		Session session = factory.openSession();
+		Transaction tra = session.beginTransaction();
+		String hql = "select count(*) from T06_Employee";
+		Query query = session.createQuery(hql);
+		Number count = (Number) query.uniqueResult();
+		System.out.println("total count : " + count.intValue());
+		try {
+			tra.commit();
+		} catch (Exception e) {
+			tra.rollback();
+		} finally {
+			session.close();
+		}
+	}
+
+	/**
+	 * hql多對象查詢部分欄位
+	 * 可以根據對象的屬性直接查詢值，而不用join
+	 */
+	private static void tryHql_7_2() {
+		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
+		Session session = factory.openSession();
+		Transaction tra = session.beginTransaction();
+		String hql = "select e.eid, e.ename, e.department.dname from T06_Employee e";// 選取特定欄位
+		Query query = session.createQuery(hql);
+		List<T06_Employee[]> results = query.list();
+		for (int i = 0; i < results.size(); i++) {
+			Object[] os = results.get(i);
+			System.out.println(os[0] + " " + os[1]+ " " + os[2]);
+		}
 		try {
 			tra.commit();
 		} catch (Exception e) {

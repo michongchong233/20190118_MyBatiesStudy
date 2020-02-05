@@ -3,7 +3,7 @@
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2016-7-8 1:31:59 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping package="com.mickey.pojo">
-	<class name="T01_User" table="springmvc_t15_user">
+	<class name="T01_User" table="hibernate_t01_user">
 		<id name="id" column="id" type="int">
 			<!-- <column name="id" not-null="false" /> -->
 			<generator class="native" /><!-- increment -->
