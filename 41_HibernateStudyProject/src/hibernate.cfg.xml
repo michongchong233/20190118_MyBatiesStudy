@@ -11,6 +11,13 @@
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.connection.password">1234</property>
 		<!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
+		
+		<!-- 開啟二級緩存 -->
+		<property name="cache.use_second_level_cache">true</property><!-- 默認是false -->
+		<!-- 配置二級緩存框架，一般都用這個 -->
+		<property name="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</property>
+		<!-- 指定隔離級別 -->
+		<property name="hibernate.connection.isolation">2</property>
 
 		<!-- 物件和資料表映射文件 -->
 		<mapping resource="com/mickey/pojo/T01_User.hbm.xml" />
@@ -23,6 +30,7 @@
 		<mapping resource="com/mickey/pojo/T05_Course.hbm.xml" />
 		<mapping resource="com/mickey/pojo/T05_Student.hbm.xml" />
 		
+		<!-- 物件通過注釋映射 -->
 		<mapping class="com.mickey.pojo.T06_User"/>
 		<mapping class="com.mickey.pojo.T06_Company"/>
 		<mapping class="com.mickey.pojo.T06_Address"/>

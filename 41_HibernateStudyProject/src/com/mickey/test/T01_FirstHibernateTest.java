@@ -59,7 +59,11 @@ public class T01_FirstHibernateTest {
 //		tryHql_7_7();// hql分頁查詢
 //		tryHql_7_8();// join，內連接，外連接
 //		tryHql_7_9();// SQL原生查詢
-		tryHql_7_10();// SQL原生查詢
+//		tryHql_7_10();// SQL原生查詢
+//		trySessionCache();// 一級緩存
+//		trySessionFactoryCache();// 二級緩存
+//		tryQueryCache();//查詢緩存
+		tryOptimisticLock();//樂觀鎖
 	}
 
 	/**
@@ -689,5 +693,96 @@ public class T01_FirstHibernateTest {
 		}
 		session.close();
 	}
+	
+	/**
+	 * 一級緩存，Session緩存
+	 */
+	private static void trySessionCache() {
+		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
+		Session session = factory.openSession();
+		Transaction tra = session.beginTransaction();
+		String hql = "from T06_Employee";
+		Query query = session.createQuery(hql);
+		
+		//第一次查詢，有到數據庫找
+		List list = query.list();
+		list.forEach(l -> {
+			System.out.println(l.toString());
+		});
+		
+		session.clear();//清空緩存
+		session.evict(list);//清除此對象中包含對象的緩存
+		
+		//第二次替查詢，若沒有清空湲存的話則直接去緩存找
+		list = query.list();
+		list.forEach(l -> {
+			System.out.println(l.toString());
+		});
+		
+		session.close();
+	}
+	
+	/**
+	 * 二級緩存，SessionFactory緩存
+	 */
+	private static void trySessionFactoryCache() {
+		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
+		Session session = factory.openSession();
+		
+		//第一次查詢，有到數據庫找
+		T06_Employee emp = session.get(T06_Employee.class, 1);
+		System.out.println(emp.toString());
+		session.evict(emp);//清除一級緩存
+		//第二次替查詢，若湲存找不到的話則直接去緩存找
+		System.out.println(session.get(T06_Employee.class, 1).toString());
+		
+		session.close();
+	}
+	
+	/**
+	 * 查詢緩存
+	 */
+	private static void tryQueryCache() {
+		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
+		String sql = "from T06_Employee";
+		
+		//第一次查詢
+		Session session = factory.openSession();
+		Transaction tra = session.beginTransaction();
+		List empList = session.createQuery(sql).setCacheable(true).list();//需手動開啟查詢緩存
+		empList.forEach(l -> System.out.println(l.toString()));
+		session.getTransaction().commit();
+		session.close();
+		
+		//第二次查詢
+		Session session2 = factory.openSession();
+		Transaction tra2 = session2.beginTransaction();
+		List empList2 = session2.createQuery(sql).setCacheable(true).list();//需手動開啟查詢緩存
+		empList2.forEach(l -> System.out.println(l.toString()));
+		session2.getTransaction().commit();
+		session2.close();
+	}
+	
+	/**
+	 * 樂觀鎖
+	 */
+	private static void tryOptimisticLock() {
+		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
+		Session session = factory.openSession();
+		Transaction tra = session.beginTransaction();
+		T06_Employee emp = session.load(T06_Employee.class, 1);
+		emp.setEname(emp.getEname() + "a");
 
+		//第一個事務中間提交第二個事務
+		Session session2 = factory.openSession();
+		Transaction tra2 = session.beginTransaction();
+		T06_Employee emp2 = session.load(T06_Employee.class, 1);
+		emp2.setEname(emp2.getEname() + "b");
+		tra2.commit();
+		session2.close();
+		
+		tra.commit();//提交第一個事務，會報Transaction already active的異常
+		session.close();
+	}
+	
 }
