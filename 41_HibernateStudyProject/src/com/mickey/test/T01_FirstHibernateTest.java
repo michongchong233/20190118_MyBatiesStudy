@@ -791,6 +791,7 @@ public class T01_FirstHibernateTest {
 	/**
 	 * Ä~©Ó¬M®g_³æªíÄ~©Ó
 	 * Ä~©Ó¬M®g_joined-subclass
+	 * Ä~©Ó¬M®g_joined-unionclass
 	 */
 	private static void tryClass_12_01() {
 		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
