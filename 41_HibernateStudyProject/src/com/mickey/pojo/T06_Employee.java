@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -25,6 +26,9 @@ public class T06_Employee {
 	@OneToOne(cascade = CascadeType.ALL) 
 	@JoinColumn(name = "did")
 	private T06_Department department;
+	
+	@Version//用於記錄樂觀鎖的版本
+	private int version;
 	
 	public T06_Employee() {
 		super();
