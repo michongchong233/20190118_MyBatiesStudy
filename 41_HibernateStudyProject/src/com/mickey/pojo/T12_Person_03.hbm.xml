@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.mickey.pojo">
+	<!-- joined-subclass -->
+	<!-- abstract="true"，代表不映射表 -->
+	<class name="T12_Person" table="hibernate_t12_person" lazy="true" abstract="true">
+		<id name="id">
+			<generator class="increment"></generator><!-- 注意：要用increment -->
+		</id>
+		<property name="name"></property>
+	
+		<!-- 設置子類 -->
+		<union-subclass name="T12_Student" table="hibernate_t12_student">
+			<property name="school"></property>
+			<property name="studentNum"></property>
+		</union-subclass>
+		<union-subclass name="T12_Teacher" table="hibernate_t12_teacher">
+			<property name="salary"></property>
+			<property name="teacherNum"></property>
+		</union-subclass>
+	</class>
+</hibernate-mapping>

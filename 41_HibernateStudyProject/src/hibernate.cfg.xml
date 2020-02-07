@@ -10,8 +10,10 @@
 		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/trydb?serverTimezone=UTC</property>
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.connection.password">1234</property>
-		<!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
-		
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		<!-- SQL dialect，MySql5之後的方言問題，需新配置 -->
+		<property name="dialect">org.hibernate.dialect.MySQL57Dialect</property>
+
 		<!-- 開啟二級緩存 -->
 		<property name="cache.use_second_level_cache">true</property><!-- 默認是false -->
 		<!-- 配置二級緩存框架，一般都用這個 -->
@@ -29,14 +31,17 @@
 		<mapping resource="com/mickey/pojo/T05_Address.hbm.xml" />
 		<mapping resource="com/mickey/pojo/T05_Course.hbm.xml" />
 		<mapping resource="com/mickey/pojo/T05_Student.hbm.xml" />
-		
+		<!-- <mapping resource="com/mickey/pojo/T12_Person_01.hbm.xml" />
+		<mapping resource="com/mickey/pojo/T12_Person_02.hbm.xml" /> -->
+		<mapping resource="com/mickey/pojo/T12_Person_03.hbm.xml" />
+
 		<!-- 物件通過注釋映射 -->
-		<mapping class="com.mickey.pojo.T06_User"/>
-		<mapping class="com.mickey.pojo.T06_Company"/>
-		<mapping class="com.mickey.pojo.T06_Address"/>
-		<mapping class="com.mickey.pojo.T06_Department"/>
-		<mapping class="com.mickey.pojo.T06_Employee"/>
-		<mapping class="com.mickey.pojo.T06_Course"/>
-		<mapping class="com.mickey.pojo.T06_Student"/>
+		<mapping class="com.mickey.pojo.T06_User" />
+		<mapping class="com.mickey.pojo.T06_Company" />
+		<mapping class="com.mickey.pojo.T06_Address" />
+		<mapping class="com.mickey.pojo.T06_Department" />
+		<mapping class="com.mickey.pojo.T06_Employee" />
+		<mapping class="com.mickey.pojo.T06_Course" />
+		<mapping class="com.mickey.pojo.T06_Student" />
 	</session-factory>
 </hibernate-configuration>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.mickey.pojo">
+	<!-- 單表繼承 -->
+	<class name="T12_Person" table="hibernate_t12_person" lazy="true" discriminator-value="1">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<!-- 設置區分實體類的欄位 -->
+		<discriminator column="type"></discriminator>
+		<property name="name"></property>
+		<subclass name="T12_Student" discriminator-value="2"><!-- 當type=1時為T12_Student -->
+			<property name="school" />
+			<property name="studentNum" />
+		</subclass>
+		<subclass name="T12_Teacher" discriminator-value="3"><!-- 當type=2時為T12_Teacher -->
+			<property name="salary"></property>
+			<property name="teacherNum"></property>
+		</subclass>
+	</class>
+</hibernate-mapping>

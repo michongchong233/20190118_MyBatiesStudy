@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.mickey.pojo">
+	<!-- joined-subclass -->
+	<class name="T12_Person" table="hibernate_t12_person" lazy="true">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="name"></property>
+		
+		<!-- 設置子類 -->
+		<joined-subclass name="T12_Student" table="hibernate_t12_student">
+			<key column="personId" foreign-key="id"></key>
+			<property name="school"></property>
+			<property name="studentNum"></property>
+		</joined-subclass>
+		<joined-subclass name="T12_Teacher" table="hibernate_t12_teacher">
+			<key column="personId" foreign-key="id"></key>
+			<property name="salary"></property>
+			<property name="teacherNum"></property>
+		</joined-subclass>
+	</class>
+</hibernate-mapping>
