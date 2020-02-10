@@ -11,6 +11,11 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
+import com.mickey.pojo.PK_02_Result;
+import com.mickey.pojo.PK_02_ResultPK;
+import com.mickey.pojo.PK_03_Result;
+import com.mickey.pojo.PK_03_Student;
+import com.mickey.pojo.PK_03_Subject;
 import com.mickey.pojo.T01_User;
 import com.mickey.pojo.T02_SessionFactorySingleton;
 import com.mickey.pojo.T04_Address;
@@ -67,7 +72,9 @@ public class T01_FirstHibernateTest {
 //		trySessionFactoryCache();// ¤G¯Å½w¦s
 //		tryQueryCache();//¬d¸ß½w¦s
 //		tryOptimisticLock();//¼ÖÆ[Âê
-		tryClass_12_01();// Ä~©Ó¬M®g
+//		tryClass_12_01();// Ä~©Ó¬M®g
+//		tryComponentPK_02();
+		tryComponentPK_03();
 	}
 
 	/**
@@ -789,9 +796,7 @@ public class T01_FirstHibernateTest {
 	}
 
 	/**
-	 * Ä~©Ó¬M®g_³æªíÄ~©Ó
-	 * Ä~©Ó¬M®g_joined-subclass
-	 * Ä~©Ó¬M®g_joined-unionclass
+	 * Ä~©Ó¬M®g_³æªíÄ~©Ó Ä~©Ó¬M®g_joined-subclass Ä~©Ó¬M®g_joined-unionclass
 	 */
 	private static void tryClass_12_01() {
 		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
@@ -820,5 +825,60 @@ public class T01_FirstHibernateTest {
 			session.close();
 		}
 	}
-	
+
+	/**
+	 * Áp¦X¥DÁä
+	 */
+	private static void tryComponentPK_02() {
+		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
+		Session session = factory.openSession();
+		Transaction tra = session.beginTransaction();
+		PK_02_ResultPK pk1 = new PK_02_ResultPK();
+		try {
+			pk1.setStuId(1);
+			pk1.setSubId(1);
+			PK_02_Result r1 = new PK_02_Result();
+			r1.setId(pk1);
+			r1.setScore(66);
+			session.save(r1);
+			tra.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tra.rollback();
+		} finally {
+			session.close();
+		}
+	}
+
+	/**
+	 * Áp¦X¥DÁä
+	 */
+	private static void tryComponentPK_03() {
+		SessionFactory factory = T02_SessionFactorySingleton.getAnnotationSessionFactory();
+		Session session = factory.openSession();
+		Transaction tra = session.beginTransaction();
+
+		try {
+			// ¥ý«Ø¥ß¥~Áä¡A¦sÀÉ
+			PK_03_Student stu = new PK_03_Student();
+			stu.setName("Mickey");
+			session.save(stu);
+			PK_03_Subject sub = new PK_03_Subject();
+			sub.setName("Math");
+			session.save(sub);
+
+			PK_03_Result r1 = new PK_03_Result();
+			r1.setStudent(stu);
+			r1.setSubject(sub);
+			r1.setSource(88.5);
+			session.save(r1);
+			tra.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tra.rollback();
+		} finally {
+			session.close();
+		}
+	}
+
 }

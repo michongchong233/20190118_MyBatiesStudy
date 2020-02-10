@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.mickey.pojo">
+	<class name="PK_02_Result" table="hibernate_pk02_result">
+		<composite-id name="id" class="PK_02_ResultPK">
+			<key-property name="stuId"></key-property>
+			<key-property name="subId"></key-property>
+		</composite-id>
+		<property name="score"></property>
+	</class>
+</hibernate-mapping>
+

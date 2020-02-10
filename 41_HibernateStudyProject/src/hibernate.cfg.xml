@@ -34,6 +34,11 @@
 		<!-- <mapping resource="com/mickey/pojo/T12_Person_01.hbm.xml" />
 		<mapping resource="com/mickey/pojo/T12_Person_02.hbm.xml" /> -->
 		<mapping resource="com/mickey/pojo/T12_Person_03.hbm.xml" />
+		<!-- 聯合主鍵 -->
+		<mapping resource="com/mickey/pojo/PK_02_Result.hbm.xml"/>
+		<mapping resource="com/mickey/pojo/PK_03_Student.hbm.xml"/>
+		<mapping resource="com/mickey/pojo/PK_03_Subject.hbm.xml"/>
+		<mapping resource="com/mickey/pojo/PK_03_Result.hbm.xml"/>
 
 		<!-- 物件通過注釋映射 -->
 		<mapping class="com.mickey.pojo.T06_User" />

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.mickey.pojo">
+	<class name="PK_03_Subject" table="hibernate_pk03_subject">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="name"></property>
+	</class>
+</hibernate-mapping>
