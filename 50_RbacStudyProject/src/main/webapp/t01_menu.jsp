@@ -1,14 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
-	pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
+<meta charset="utf-8">
 <title>t01_menu</title>
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
-	//½Õ¥Îcontroller
+	//èª¿ç”¨controller
 	$(function() {
 		$.post("getMenuList", function(data) {
 			var result = "";
@@ -24,8 +24,8 @@
 		});
 	})
 
-	//¹ï©Ò¦³¤÷µæ³æ²K¥[ÂIÀ»¨Æ¥ó 
-	//live("¨Æ¥ó¦W¡A¦h­Ó¨Æ¥ó¨Ï¥ÎªÅ®æ¤À³Î", function(){})
+	//å°æ‰€æœ‰çˆ¶èœå–®æ·»åŠ é»æ“Šäº‹ä»¶ 
+	//live("äº‹ä»¶åï¼Œå¤šå€‹äº‹ä»¶ä½¿ç”¨ç©ºæ ¼åˆ†å‰²", function(){})
 	$("dt").live("click", function() {
 		$(this).siblings().slideToggle(1000);
 	})
