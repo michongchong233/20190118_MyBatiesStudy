@@ -1,6 +1,7 @@
 package com.mickey.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,10 +15,11 @@ public class T01_UserController {
 	private T01_UserService userService;
 	
 	@RequestMapping("login")
-	public String logIn(T01_User user) {
+	public String logIn(T01_User user, HttpSession session) {
 		T01_User searchUser = userService.logIn(user);
 		if(searchUser != null) {
-			return "redirect:/t01_main.jsp";
+			session.setAttribute("user", searchUser);
+			return "redirect:/t01_menu.jsp";
 		} else {
 			return "redirect:/t01_login.jsp";
 		}

@@ -16,7 +16,7 @@
 	<context:component-scan base-package="com.mickey.controller"></context:component-scan>
 	
 	<!-- 加載驅動 -->
-	<mvc:annotation-driven></mvc:annotation-driven>
+	<mvc:annotation-driven />
 	
 	<!-- 靜態資源 -->
 	<mvc:resources location="/js/" mapping="/js/**"></mvc:resources>
@@ -29,4 +29,5 @@
 		<property name="prefix" value="/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
+	
 </beans>

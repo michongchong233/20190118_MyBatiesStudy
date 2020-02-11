@@ -1,9 +1,12 @@
 package com.mickey.pojo;
 
+import java.util.List;
+
 public class T01_User {
 	private int id;
 	private String username;
 	private String password;
+	private List<T01_Menu> menus;
 
 	public int getId() {
 		return id;
@@ -27,6 +30,14 @@ public class T01_User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<T01_Menu> getMenu() {
+		return menus;
+	}
+
+	public void setMenu(List<T01_Menu> menus) {
+		this.menus = menus;
 	}
 
 	@Override
