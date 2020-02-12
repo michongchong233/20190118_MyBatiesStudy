@@ -10,5 +10,4 @@ public interface T03_UserService {
 	 * @return
 	 */
 	public T03_User login(T03_User user);
-	
 }

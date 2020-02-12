@@ -79,3 +79,20 @@ insert into rbac_03_menu values(default, 'order menegment', 2);
 insert into rbac_03_menu values(default, 'client menegment', 2);
 
 select * from rbac_03_menu;
+
+-- 頁面元素表
+create table rbac_04_element(
+	id int(10) primary key auto_increment,
+    element_str varchar(50) not null
+);
+insert into rbac_04_element values(default, 'ins');
+select * from rbac_04_element;
+
+-- 角色-頁面元素表
+create table rbac_04_actor_element(
+	id int(10) primary key auto_increment,
+    aid int(10) not null,
+    eid int(10) not null
+);
+insert into rbac_04_actor_element values(default, 1, 1);
+select * from rbac_04_actor_element;

@@ -14,13 +14,13 @@ public class T03_UserController {
 
 	@Resource
 	T03_UserService userService;
-
+	
 	@RequestMapping("login_03")
 	public String login(T03_User user, HttpSession session) {
 		T03_User searchUser = userService.login(user);
 		if (searchUser != null) {
 			System.out.println(searchUser.toString());
-			session.setAttribute("uid", searchUser.getId());
+			session.setAttribute("user", searchUser);
 			return "redirect:/t03_menu.jsp";
 		} else {
 			return "redirect:/t03_login.jsp";
