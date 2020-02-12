@@ -16,7 +16,3 @@ create table rabc_01_menu(
     pid int(10) not null
 );
 
-select * from rabc_01_user_menu where uid=1;
-select * from rabc_01_menu where id in (
-	select * from rabc_01_user_menu where uid=1
-);
