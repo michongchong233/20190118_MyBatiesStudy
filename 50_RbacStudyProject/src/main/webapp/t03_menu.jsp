@@ -19,8 +19,8 @@
 		</c:forEach>
 	</dl>
 
-	<c:forEach items="user.elements" var="element">
-		<c:if test="${element eq 'ins' }">
+	<c:forEach items="${user.elements}" var="element">
+		<c:if test="${element.elementStr eq 'ins' }">
 			<button elementStr="ins">insert</button>
 		</c:if>
 	</c:forEach>

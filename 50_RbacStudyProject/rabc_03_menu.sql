@@ -96,3 +96,22 @@ create table rbac_04_actor_element(
 );
 insert into rbac_04_actor_element values(default, 1, 1);
 select * from rbac_04_actor_element;
+
+-- url權限
+create table rbac_05_url(
+	id int(10) primary key auto_increment, 
+    url_path varchar(100)
+);
+insert into rbac_05_url values(default, '/50_RbacStudyProject/t03_menu.jsp');
+insert into rbac_05_url values(default, '/50_RbacStudyProject/t05_urlrole.jsp');
+select * from rbac_05_url;
+
+-- 角色-url權限
+create table rbac_05_actor_url(
+	id int(10) primary key auto_increment,
+    aid int(10) not null,
+    url_id int(10) not null
+);
+insert into rbac_05_actor_url values(default, 1, 1);
+insert into rbac_05_actor_url values(default, 2, 2);
+select * from rbac_05_actor_url;

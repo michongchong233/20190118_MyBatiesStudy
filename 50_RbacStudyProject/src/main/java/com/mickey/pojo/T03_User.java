@@ -8,6 +8,7 @@ public class T03_User {
 	private String password;
 	private List<T03_Menu> menus;
 	private List<T04_Element> elements;
+	private List<T05_Url> urls;
 
 	public int getId() {
 		return id;
@@ -41,18 +42,26 @@ public class T03_User {
 		this.menus = menus;
 	}
 
-	public List<T04_Element> getElement() {
+	public List<T04_Element> getElements() {
 		return elements;
 	}
 
-	public void setElement(List<T04_Element> elements) {
+	public void setElements(List<T04_Element> elements) {
 		this.elements = elements;
+	}
+
+	public List<T05_Url> getUrls() {
+		return urls;
+	}
+
+	public void setUrls(List<T05_Url> urls) {
+		this.urls = urls;
 	}
 
 	@Override
 	public String toString() {
 		return "T03_User [id=" + id + ", username=" + username + ", password=" + password + ", menus=" + menus
-				+ ", element=" + elements + "]";
+				+ ", elements=" + elements + ", urls=" + urls + "]";
 	}
 
 }
